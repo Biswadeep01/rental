@@ -40,7 +40,7 @@ const quickLinks = [
 const Footer = () => {
   const date = new Date();
   const year = date.getFullYear();
-  const position = [51.505, -0.09];
+  const position = [18.336000, -64.917503];
   return (
     <footer className="footer">
       <Container>
