@@ -1,8 +1,9 @@
 import React from "react";
-
+import { TileLayer , MapContainer, Marker } from "react-leaflet";
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../styles/footer.css";
+import "leaflet/dist/leaflet.css";
 import logo from '../../assets/all-images/LogoM.jpg';
 
 const quickLinks = [
@@ -41,6 +42,7 @@ const Footer = () => {
   const date = new Date();
   const year = date.getFullYear();
   return (
+    <>
     <footer className="footer">
       <Container>
         <Row>
@@ -89,12 +91,12 @@ const Footer = () => {
 
           <Col lg="3" md="4" sm="12">
             <div className="mb-4">
-              <h5 className="footer__link-title">Location</h5>
+              <h5 className="footer-title">Location</h5>
               <div className="map-wrap">
-                <input type="email" placeholder="Email" />
-                <span>
-                  <i class="ri-send-plane-line"></i>
-                </span>
+                <MapContainer center={[18.336000, -64.917503]} zoom={20}>
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                  <Marker position={[18.336000, -64.917503]}/>
+                </MapContainer>
               </div>
             </div>
           </Col>
@@ -110,7 +112,8 @@ const Footer = () => {
         </Row>
       </Container>
     </footer>
+    </>
   );
 };
 
-export default Footer;
+export default Footer
