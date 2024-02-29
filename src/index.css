@@ -17,7 +17,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #00108b;
+  color: #039594;
   font-weight: 600;
   margin-bottom: 0;
 }
@@ -47,7 +47,7 @@ ul {
 }
 
 .section__title {
-  color: #00108b;
+  color: #039594;
   font-weight: 600;
   font-size: 2rem;
 }
@@ -59,7 +59,7 @@ ul {
 }
 
 .section__description {
-  color: #dadada;
+  color: #000000;
   font-size: 0.8rem;
   line-height: 30px;
 }
@@ -70,7 +70,7 @@ section {
 
 .btn {
   padding: 7px 15px;
-  background: #00108b;
+  background: #039594;
   color: #fff;
   border: none;
   outline: none;
@@ -80,7 +80,7 @@ section {
 
 .btn:hover {
   color: #fff !important;
-  background: #000c6bd0;
+  background: #03959593;
 }
 
 .loader-container {

@@ -3,7 +3,7 @@ import AboutSection from "../components/UI/AboutSection";
 
 const About = () => {
   return (
-    <div><AboutSection/></div>
+    <section><AboutSection/></section>
   )
 }
 
