@@ -1,45 +1,63 @@
 .slider__item {
   max-width: 100%;
   height: 650px;
-}
-
-.slider__item-01 {
-  background: linear-gradient(rgb(3, 150, 150, 0.5), rgb(3, 150, 150, 0.5)),
-    url("../assets/all-images/slider-img/slider-1.jpg");
+  display: flex;
+  justify-content: flex-end;
+  background: url("../assets/all-images/hero/hero.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.slider__item-02 {
-  background: linear-gradient(rgb(3, 150, 150, 0.5), rgb(3, 150, 150, 0.5)),
-    url("../assets/all-images/slider-img/slider-2.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.slider__item-03 {
-  background: linear-gradient(rgb(3, 150, 150, 0.5), rgb(3, 150, 150, 0.5)),
-    url("../assets/all-images/slider-img/slider-3.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.hero__slider {
+  background-blend-mode: multiply;
   overflow: hidden;
 }
 
 .slider__content {
-  padding-top: 150px;
+  padding-top: 80px;
 }
 
 .slider__content h1 {
   font-size: 3.2rem;
   font-weight: 600;
 }
+.slider__content h4 {
+  font-size: 2.3rem;
+  font-weight: 400;
+}
+.hero-content{
+  position: absolute;
+  left: 450px;
+  text-align: center;
+}
+.parallelogram {
+  width: 436px;
+  height: 650px;
+  position: absolute;
+  left: 390px;
+  top: -1px;
+	transform: skew(20deg);
+  background-color: #039595c5;
+  z-index: 0;
+  text-align: center;
+}
+.image1{
+  position: absolute;
+  right: 60px; 
+  top: 120px;
+  width: 40%;
+  height: 45%;
+  z-index: 0;
+  animation: move 3s ease-in-out ;
+}
 
+.image2{
+  position: absolute;
+  left: 70px; 
+  top: 300px;
+  width: 30%;
+  height: 35%;
+  z-index: 1;
+  animation: moving 3s ease-in-out ;
+}
 .reserve__btn {
   background: #fff !important;
   color: #039594 !important;
@@ -56,6 +74,15 @@
 .reserve__btn:hover {
   background: #039594;
   color: #fff;
+}
+
+@keyframes move {
+  from {right: -450px;}
+  to {right: 60px;}
+}
+@keyframes moving {
+  from {left: -400px;}
+  to {left: 70px;}
 }
 
 @media only screen and (max-width: 992px) {
