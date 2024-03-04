@@ -3,13 +3,14 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 import Home from '../pages/Home'
 import About from '../pages/About'
 import Fleet from '../pages/Fleet'
+import Booking from '../components/UI/Booking'
+import PaymentMethod from '../components/UI/PaymentMethod'
+import BookingForm from '../components/UI/BookingForm'
 import Services from '../pages/Services'
 import Blog from '../pages/Blog'
-import BlogDetails from '../pages/BlogDetails'
 import Testimonials from '../pages/Testimonials'
 import FAQ from '../pages/FAQ'
 import Contact from '../pages/Contact'
-import NotFound from '../pages/NotFound'
 
 const Router = () => {
   return <Routes>
@@ -17,13 +18,14 @@ const Router = () => {
     <Route path='/home' element={<Home />} />
     <Route path='/about' element={<About />} />
     <Route path='/fleet' element={<Fleet />} />
+    <Route path='/booking' element={<Booking />} />
+    <Route path='/payment' element={<PaymentMethod />} />
+    <Route path='/booking-form' element={<BookingForm />} />
     <Route path='/blog' element={<Blog />} />
-    <Route path='/blog/:slug' element={<BlogDetails />} />
     <Route path='/services' element={<Services />} />
     <Route path='/testimonials' element={<Testimonials />} />
     <Route path='/faq' element={<FAQ />} />
     <Route path='/contact' element={<Contact />} />
-    <Route path='/' element={<NotFound />} />
   </Routes>
 }
 

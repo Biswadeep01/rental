@@ -7,6 +7,22 @@
   font-size: 1.1rem;
 }
 
+.section__subtitle{
+  font-size: 1.7rem;
+}
+.member{
+  margin-top: 50px;
+  padding-top: 10px;
+  justify-content: center;
+}
+.about__section-members{
+  margin-top: 100px;
+  padding: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 @media only screen and (max-width: 992px) {
   .about__section-content h2 {
     font-size: 1.5rem;
