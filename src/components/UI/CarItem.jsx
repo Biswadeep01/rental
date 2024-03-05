@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 
 const CarItem = (props) => {
-  const { imgUrl, model, carName, automatic, speed, price } = props.item;
+  const { id, imgUrl, model, carName, automatic, speed, price } = props.item;
+
+  const [data, setData]= useState({
+    id: {id},
+  });
 
   return (
     <Col lg="4" md="4" sm="6" className="mb-5">
@@ -32,7 +36,7 @@ const CarItem = (props) => {
           </div>
 
           <button className=" w-50 car__item-btn car__btn-rent">
-            <Link to={`/booking`}>Rent</Link>
+            <Link to="/booking-form" state={{data: data}}>Rent</Link>
           </button>
 
           <button className=" w-50 car__item-btn car__btn-details">

@@ -54,7 +54,7 @@ const About = () => {
             </div>
           </Col>
         </Row>
-        <Col lg="10" md="6">
+        <Col lg="10" md="6" className="text-center mb-5">
           <h1 className="section__subtitle member">Our Members</h1>
           <div className="about__section-members">
             <OurMembers/></div>

@@ -3,7 +3,6 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 import Home from '../pages/Home'
 import About from '../pages/About'
 import Fleet from '../pages/Fleet'
-import Booking from '../components/UI/Booking'
 import PaymentMethod from '../components/UI/PaymentMethod'
 import BookingForm from '../components/UI/BookingForm'
 import Services from '../pages/Services'
@@ -18,7 +17,6 @@ const Router = () => {
     <Route path='/home' element={<Home />} />
     <Route path='/about' element={<About />} />
     <Route path='/fleet' element={<Fleet />} />
-    <Route path='/booking' element={<Booking />} />
     <Route path='/payment' element={<PaymentMethod />} />
     <Route path='/booking-form' element={<BookingForm />} />
     <Route path='/blog' element={<Blog />} />
