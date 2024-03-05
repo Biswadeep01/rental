@@ -30,6 +30,17 @@
   outline: none;
 }
 
+.booking{
+  padding: 8px 15px;
+  border-radius: 5px;
+  background: #039594 !important;
+  color: #fff !important;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+
 @media only screen and (max-width: 768px) {
   .booking__form {
     width: 100%;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Container} from "reactstrap";
 
 import masterCard from "../../assets/all-images/master-card.jpg";
 import paypal from "../../assets/all-images/paypal.jpg";
@@ -7,6 +8,8 @@ import "../../styles/payment-method.css";
 const PaymentMethod = () => {
   return (
     <>
+    <section>
+      <Container>
       <div className="payment">
         <label htmlFor="" className="d-flex align-items-center gap-2">
           <input type="radio" /> Direct Bank Transfer
@@ -36,7 +39,8 @@ const PaymentMethod = () => {
       </div>
       <div className="payment text-end mt-5">
         <button>Reserve Now</button>
-      </div>
+      </div></Container>
+      </section>
     </>
   );
 };

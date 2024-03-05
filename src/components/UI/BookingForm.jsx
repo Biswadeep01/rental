@@ -1,11 +1,10 @@
 import React from "react";
-import {useLocation} from "react-router-dom";
+import {useLocation, Link} from "react-router-dom";
 import Helmet from "../Helmet/Helmet";
 import "../../styles/booking-form.css";
-import { Container, Col, Form, FormGroup } from "reactstrap";
+import { Container, Col, Form, FormGroup, Button} from "reactstrap";
 
 const BookingForm = (props) => {
-  console.log(props, "props")
   const location = useLocation();
   const data = location.state?.data;
   const submitHandler = (event) => {
@@ -14,11 +13,15 @@ const BookingForm = (props) => {
   return (
     <Helmet title="Booking">
       <Container>
-        <div className="booking__top d-flex align-items-center justify-content-between">
-          <Col lg="12" className="text-center mb-5">Booking</Col>
-        </div>
+        <section>
+          <Col lg="12" className="text-center mb-5">
+            <h2 className="section__title">Booking</h2>
+          </Col>
+        </section>
+        <section>
         <div>
           <p>Car ID: {data? data.id : null}</p>
+          <p>Car Name: {data? data.name : null}</p>
         </div>
         <Form onSubmit={submitHandler}>
           <FormGroup className="booking__form d-inline-block me-4 mb-4">
@@ -80,7 +83,9 @@ const BookingForm = (props) => {
               placeholder="Write"
             ></textarea>
           </FormGroup>
+          <Link to="/payment"><Button className="booking">Submit</Button></Link>
         </Form>
+        </section>
       </Container>
     </Helmet>
 

@@ -7,7 +7,8 @@ const CarItem = (props) => {
   const { id, imgUrl, model, carName, automatic, speed, price } = props.item;
 
   const [data, setData]= useState({
-    id: {id},
+    id: `${id}`,
+    name: `${carName}`,
   });
 
   return (
