@@ -1,36 +1,31 @@
 import React from "react";
-import { TileLayer , MapContainer, Marker, Popup } from "react-leaflet";
+import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet";
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../styles/footer.css";
-import logo from '../../assets/all-images/LogoM.jpg';
+import logo from "../../assets/all-images/LogoM.jpg";
 
 const quickLinks = [
   {
     path: "/about",
     display: "About",
   },
-
   {
     path: "#",
     display: "Privacy Policy",
   },
-
   {
     path: "#",
     display: "Terms of Use",
   },
-
   {
     path: "/fleet",
     display: "Fleet",
   },
-  
   {
     path: "/faq",
     display: "FAQ",
   },
-
   {
     path: "/contact",
     display: "Contact Us",
@@ -78,12 +73,18 @@ const Footer = () => {
           <Col lg="3" md="4" sm="6">
             <div className="mb-4">
               <h5 className="footer__link-title mb-4">Head Office</h5>
-              <p className="office__info">69A Bournefield St. Thomas, Virgin Islands 00802 USA</p>
-              <p className="office__info">Phone:  (340) 776-3730</p>
-
-              <p className="office__info">Email: Firstrent@earthlink.net</p>
-
-              <p className="office__info">Office Time: 10am - 7pm</p>
+              <p className="office__info">
+                69A Bournefield St. Thomas, US Virgin Islands 00802
+              </p>
+              <p className="office__info">
+                Mailing address: P.O. Box 302476 St. Thomas, US Virgin Islands
+                00803
+              </p>
+              <p className="office__info">Phone: (340) 776-3730</p>
+              <p className="office__info">Email: Info@just-rentacar.com</p>
+              <p className="office__info">Reservation@just-rentacar.com</p>
+              <p className="office__info">Office Time: 10 AM - 7 PM</p>
+              <p className="office__info">Reservation Time: 10 AM - 6 PM</p>
             </div>
           </Col>
 
@@ -91,9 +92,13 @@ const Footer = () => {
             <div className="mb-4">
               <h5 className="footer-title">Location</h5>
               <div className="map-wrap">
-                <MapContainer center={[18.336000, -64.917503]} zoom={15} scrollWheelZoom={false}>
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                  <Marker position={[18.336000, -64.917503]}>
+                <MapContainer
+                  center={[18.336, -64.917503]}
+                  zoom={15}
+                  scrollWheelZoom={false}
+                >
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <Marker position={[18.336, -64.917503]}>
                     <Popup>Find us here</Popup>
                   </Marker>
                 </MapContainer>
@@ -103,10 +108,14 @@ const Footer = () => {
 
           <Col lg="12">
             <div className="footer__bottom">
-              <p className="section__description d-flex align-items-center justify-content-center gap-1 pt-4">
-                <i class="ri-copyright-line"></i>Copyright {year}, Developed by
-                <Link to="#" className="design_link">JMT Solutions</Link>. All rights reserved.
+              <p style={{ textAlign: "center", marginTop: "1rem" }}>
+                <i class="ri-copyright-line"></i>&nbsp; Copyright {year},
+                Developed by
+                <Link to="#" className="design_link">
+                  &nbsp; JMT Solutions
+                </Link>
               </p>
+              <p style={{ textAlign: "center" }}>All rights reserved.</p>
             </div>
           </Col>
         </Row>
@@ -115,4 +124,4 @@ const Footer = () => {
   );
 };
 
-export default Footer
+export default Footer;

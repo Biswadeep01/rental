@@ -1,5 +1,5 @@
 .header__top {
-  padding:7px 0px;
+  padding: 7px 0px;
   background: #039594;
   color: #fff;
 }
@@ -7,7 +7,7 @@
 .header__top__left {
   display: flex;
   align-items: center;
-  column-gap: 1rem;
+  column-gap: 2rem;
 }
 
 .header__top__left span {
@@ -42,18 +42,14 @@
 /* ============ header middle style =========== */
 
 .header__middle {
-  padding: 20px 0px;
+  padding: 10px 0px;
 }
 
-.logo{
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-  max-height: 80px;
-  max-width: 120px;
+.logo {
+  width: 85px;
 }
 
-.header__location{
+.header__location {
   margin-top: 20px;
 }
 .header__location span i {
@@ -113,7 +109,7 @@
 .menu {
   display: flex;
   align-items: center;
-  column-gap: 2.7rem;
+  column-gap: 3rem;
 }
 
 .nav__item {

@@ -1,12 +1,17 @@
-import React from 'react'
+import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import carData from "../assets/data/carData";
-import CarItem from "../components/UI/CarItem";
+import { Helmet } from "react-helmet-async";
+
+import carData from "../../assets/data/carData";
+import CarItem from "../../components/UI/CarItem";
 
 const Fleet = () => {
   return (
-    <section>
-      <Container>
+    <>
+      <Helmet>
+        <title> Just Rent a Car | Fleet </title>
+      </Helmet>
+      <Container className="my-5">
         <Row>
           <Col lg="12" className="text-center mb-5">
             <h6 className="section__subtitle">Choose from our</h6>
@@ -17,8 +22,8 @@ const Fleet = () => {
           ))}
         </Row>
       </Container>
-    </section>
-  )
-}
+    </>
+  );
+};
 
-export default Fleet
+export default Fleet;

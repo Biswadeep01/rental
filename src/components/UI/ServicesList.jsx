@@ -19,7 +19,6 @@ const ServiceItem = ({ item }) => (
       <span className="mb-3 d-inline-block">
         <i class={item.icon} />
       </span>
-
       <h6>{item.title}</h6>
       <p className="section__description">{item.desc}</p>
     </div>

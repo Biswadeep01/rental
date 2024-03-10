@@ -1,8 +1,26 @@
 import React from "react";
-import {useLocation, Link} from "react-router-dom";
-import Helmet from "../Helmet/Helmet";
+import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "../../styles/booking-form.css";
-import { Container, Col, Form, FormGroup, Button} from "reactstrap";
+import {
+  Container,
+  Col,
+  Form,
+  FormGroup,
+  Button,
+  Row,
+  Label,
+  Input,
+} from "reactstrap";
+
+const options = [
+  { label: "1", value: 1 },
+  { label: "2", value: 2 },
+  { label: "3", value: 3 },
+  { label: "4", value: 4 },
+  { label: "5", value: 5 },
+  { label: ">5", value: ">5" },
+];
 
 const BookingForm = (props) => {
   const location = useLocation();
@@ -10,85 +28,120 @@ const BookingForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
   };
+
   return (
-    <Helmet title="Booking">
-      <Container>
-        <section>
-          <Col lg="12" className="text-center mb-5">
-            <h2 className="section__title">Booking</h2>
-          </Col>
-        </section>
-        <section>
-        <div>
+    <>
+      {/* <div>
           <p>Car ID: {data? data.id : null}</p>
           <p>Car Name: {data? data.name : null}</p>
-        </div>
+        </div> */}
+      <Helmet>
+        <title> Just Rent a Car | Book a ride </title>
+      </Helmet>
+      <Container>
+        <Col lg="12" className="text-left my-5">
+          <h2 className="section__title" style={{ color: "black" }}>
+            Let's book a ride 🚘{" "}
+          </h2>
+        </Col>
+
         <Form onSubmit={submitHandler}>
-          <FormGroup className="booking__form d-inline-block me-4 mb-4">
-            <input type="text" placeholder="First Name" />
-          </FormGroup>
-          <FormGroup className="booking__form d-inline-block ms-1 mb-4">
-            <input type="text" placeholder="Last Name" />
-          </FormGroup>
-
-          <FormGroup className="booking__form d-inline-block me-4 mb-4">
-            <input type="email" placeholder="Email" />
-          </FormGroup>
-          <FormGroup className="booking__form d-inline-block ms-1 mb-4">
-            <input type="number" placeholder="Phone Number" />
-          </FormGroup>
-
-          <FormGroup className="booking__form d-inline-block me-4 mb-4">
-            <input type="text" placeholder="From Address" />
-          </FormGroup>
-          <FormGroup className="booking__form d-inline-block ms-1 mb-4">
-            <input type="text" placeholder="To Address" />
-          </FormGroup>
-
-          <FormGroup className="booking__form d-inline-block me-4 mb-4">
-            <select name="" id="person">
-              <option value="1 person">1 Person</option>
-              <option value="2 person">2 Person</option>
-              <option value="3 person">3 Person</option>
-              <option value="4 person">4 Person</option>
-              <option value="5+ person">5+ Person</option>
-            </select>
-          </FormGroup>
-          <FormGroup className="booking__form d-inline-block ms-1 mb-4">
-            <select name="" id="luggage">
-              <option value="1 luggage">1 luggage</option>
-              <option value="2 luggage">2 luggage</option>
-              <option value="3 luggage">3 luggage</option>
-              <option value="4 luggage">4 luggage</option>
-              <option value="5+ luggage">5+ luggage</option>
-            </select>
-          </FormGroup>
-
-          <FormGroup className="booking__form d-inline-block me-4 mb-4">
-            <input type="date" placeholder="Journey Date" />
-          </FormGroup>
-          <FormGroup className="booking__form d-inline-block ms-1 mb-4">
-            <input
-              type="time"
-              placeholder="Journey Time"
-              className="time__picker"
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <textarea
-              rows={5}
-              type="textarea"
-              className="textarea"
-              placeholder="Write"
-            ></textarea>
-          </FormGroup>
-          <Link to="/payment"><Button className="booking">Submit</Button></Link>
+          <Row style={{ rowGap: 15 }}>
+            <Col md="6">
+              <Label>First Name</Label>
+              <Input placeholder="John" />
+            </Col>
+            <Col md="6">
+              <Label>Second Name</Label>
+              <Input placeholder="Doe" />
+            </Col>
+            <Col md="6">
+              <Label>Email</Label>
+              <Input placeholder="johndoe@email.com" />
+            </Col>
+            <Col md="6">
+              <Label>Phone Number</Label>
+              <Input placeholder="9988776655" />
+            </Col>
+            <Col md="6">
+              <Label>From Address</Label>
+              <Input type="textarea" style={{ height: "5rem" }} />
+            </Col>
+            <Col md="6">
+              <Label>To Address</Label>
+              <Input type="textarea" style={{ height: "5rem" }} />
+            </Col>
+            <Col md="6">
+              <FormGroup col>
+                <Label for="exampleSelect">Choose number of passengers</Label>
+                <Col>
+                  <Input
+                    id="exampleSelect"
+                    name="select"
+                    type="select"
+                    style={{ height: "3rem" }}
+                  >
+                    {options.map((op) => (
+                      <option value={op.value}>{op.label}</option>
+                    ))}
+                  </Input>
+                </Col>
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup col>
+                <Label for="exampleSelect">Choose number of luggages</Label>
+                <Col>
+                  <Input
+                    id="exampleSelect"
+                    name="select"
+                    type="select"
+                    style={{ height: "3rem" }}
+                  >
+                    {options.map((op) => (
+                      <option value={op.value}>{op.label}</option>
+                    ))}
+                  </Input>
+                </Col>
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup col>
+                <Label>Journey Date</Label>
+                <Col>
+                  <Input type="date" style={{ height: "3rem" }} />
+                </Col>
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup col>
+                <Label>Journey Time</Label>
+                <Col>
+                  <Input type="time" style={{ height: "3rem" }} />
+                </Col>
+              </FormGroup>
+            </Col>
+            <Col md="12">
+              <FormGroup col>
+                <Label>Message</Label>
+                <Col>
+                  <Input
+                    placeholder="Your message..."
+                    type="textarea"
+                    style={{ height: "5rem" }}
+                  />
+                </Col>
+              </FormGroup>
+            </Col>
+            <Col md="12">
+              <Button className="booking" style={{ width: "100%" }}>
+                Confirm details
+              </Button>
+            </Col>
+          </Row>
         </Form>
-        </section>
       </Container>
-    </Helmet>
-
+    </>
   );
 };
 
