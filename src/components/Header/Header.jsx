@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
-import logo from '../../assets/all-images/LogoM.jpg';
+import logo from "../../assets/all-images/LogoM.jpg";
 
 const navLinks = [
   {
@@ -11,7 +11,7 @@ const navLinks = [
   },
   {
     path: "/about",
-    display: "Who We Are ?",
+    display: "About",
   },
   {
     path: "/fleet",
@@ -45,63 +45,33 @@ const Header = () => {
   return (
     <header className="header">
       {/* ============ header top ============ */}
-      <div className="header__top">
-        <Container>
-          <Row>
-            <Col lg="10" md="10" sm="10">
-              <div className="header__top__left">
-                <span>Need Help?</span>
-                <span className="header__top__help">
-                  <i class="ri-phone-fill"></i> (340) 776-3730
-                  <i class="ri-time-line"></i> Mon-Sat:- 9:00am - 5:00pm <br/>Sun: Rotating Sundays (Please call for reservation)
-                </span>
-              </div>
-            </Col>
-
-            <Col lg="2" md="2" sm="2">
-              <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="#" className=" d-flex align-items-center gap-2">
-                  <i class="ri-login-circle-line"></i> Login
-                </Link>
-
-                <Link to="#" className=" d-flex align-items-center gap-2">
-                  <i class="ri-user-line"></i> Register
-                </Link>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-
-      {/* =============== header middle =========== */}
       <div className="header__middle">
         <Container>
           <Row>
             <Col lg="4" md="3" sm="4">
-              <div className="logo">
-                <h1>
-                  <Link to="/" className=" d-flex align-items-center gap-2">
-                    <span>
-                      <img className="logo" src={logo} alt="logo" />
-                    </span>
-                  </Link>
-                </h1>
-              </div>
+              <Link to="/" className=" d-flex align-items-center gap-2">
+                <img className="logo" src={logo} alt="logo" />
+              </Link>
             </Col>
 
-            <Col lg="3" md="3" sm="4">
-              <div className="header__location d-flex align-items-center gap-2">
+            <Col lg="4" md="3" sm="4">
+              <div className="header__location d-flex justify-content-center align-items-center gap-2">
                 <span>
                   <i class="ri-earth-line"></i>
                 </span>
                 <div className="header__location-content">
-                  <h4>St. Thomas</h4>
+                  <h4 style={{ textAlign: "center" }}>St. Thomas,</h4>
                   <h6>Virgin Islands, U.S.A.</h6>
                 </div>
               </div>
             </Col>
-            <Col lg="5" md="3" sm="0"
-              className=" d-flex align-items-center justify-content-end ">
+
+            <Col
+              lg="4"
+              md="3"
+              sm="0"
+              className="d-flex align-items-center justify-content-end"
+            >
               <button className="header__btn btn ">
                 <Link to="/contact">
                   <i class="ri-phone-line"></i> Request a call
@@ -114,13 +84,15 @@ const Header = () => {
 
       {/* ========== main navigation =========== */}
 
-      <div className="main__navbar">
+      <div
+        className="main__navbar"
+        style={{ boxShadow: "5px 5px 5px #000000" }}
+      >
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
             <span className="mobile__menu">
               <i class="ri-menu-line" onClick={toggleMenu}></i>
             </span>
-
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <div className="menu">
                 {navLinks.map((item, index) => (
@@ -136,6 +108,13 @@ const Header = () => {
                 ))}
               </div>
             </div>
+            <Link
+              to="/auth"
+              className=" d-flex align-items-center gap-2"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              <i class="ri-login-circle-line"></i> Login
+            </Link>
           </div>
         </Container>
       </div>

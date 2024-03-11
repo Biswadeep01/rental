@@ -1,35 +1,35 @@
-
-import React from 'react'
+import React from "react";
+import { Container, Row, Col } from "reactstrap";
+import { Helmet } from "react-helmet-async";
 
 import HeroSlider from "../components/UI/HeroSlider";
-import Helmet from "../components/Helmet/Helmet";
-
-import { Container, Row, Col } from "reactstrap";
 import FindCarForm from "../components/UI/FindCarForm";
 import AboutSection from "../components/UI/AboutSection";
 import ServicesList from "../components/UI/ServicesList";
 import carData from "../assets/data/carData";
 import CarItem from "../components/UI/CarItem";
 import Testimonial from "../components/UI/Testimonial";
-
 import BlogList from "../components/UI/BlogList";
+import Widget from "../components/Widget";
 
 const Home = () => {
   return (
-    <Helmet title="Home">
+    <>
+      <Helmet>
+        <title> Just Rent a Car | Home </title>
+      </Helmet>
       {/* ============= hero section =========== */}
       <section className="p-0 hero__slider-section">
         <HeroSlider />
-
         <div className="hero__form">
           <Container>
-            <Row className="form__row">
+            <Row
+              className="form__row"
+              style={{ borderRadius: 10, boxShadow: "5px 5px 5px #000000" }}
+            >
               <Col lg="3" md="4">
-                <div className="find__cars-left">
-                  <h3>Find your best car here</h3>
-                </div>
+                <div className="find__cars-left" />
               </Col>
-
               <Col lg="9" md="8" sm="12">
                 <FindCarForm />
               </Col>
@@ -37,6 +37,7 @@ const Home = () => {
           </Container>
         </div>
       </section>
+      <Widget />
       {/* =========== about section ================ */}
       <AboutSection />
       {/* ========== services section ============ */}
@@ -47,7 +48,6 @@ const Home = () => {
               <h6 className="section__subtitle">See our</h6>
               <h2 className="section__title">Popular Services</h2>
             </Col>
-
             <ServicesList />
           </Row>
         </Container>
@@ -60,7 +60,6 @@ const Home = () => {
               <h6 className="section__subtitle">Come with</h6>
               <h2 className="section__title">Hot Offers</h2>
             </Col>
-
             {carData.slice(0, 6).map((item) => (
               <CarItem item={item} key={item.id} />
             ))}
@@ -80,7 +79,6 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-
       {/* =============== blog section =========== */}
       <section>
         <Container>
@@ -94,7 +92,7 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-    </Helmet>
+    </>
   );
 };
 

@@ -1,13 +1,18 @@
-import React from 'react'
+import React from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Helmet } from "react-helmet-async";
+
 import "../styles/about-section.css";
 import aboutImg from "../assets/all-images/cars-img/bmw-offer.png";
 import OurMembers from "../components/UI/OurMembers";
 
 const About = () => {
   return (
-    <section>
-      <Container>
+    <>
+      <Helmet>
+        <title> Just Rent a Car | About </title>
+      </Helmet>
+      <Container className="my-5">
         <Row>
           <Col lg="6" md="6">
             <div className="about__section-content">
@@ -47,21 +52,24 @@ const About = () => {
               </div>
             </div>
           </Col>
-
           <Col lg="6" md="6">
             <div className="about__img">
               <img src={aboutImg} alt="" className="w-100" />
             </div>
           </Col>
         </Row>
-        <Col lg="10" md="6" className="text-center mb-5">
-          <h1 className="section__subtitle member">Our Members</h1>
-          <div className="about__section-members">
-            <OurMembers/></div>
+        <Col lg="12" md="12" className="text-center mb-5">
+          <h1
+            className="section__subtitle member"
+            style={{ textAlign: "center" }}
+          >
+            Our Members
+          </h1>
+          <OurMembers />
         </Col>
       </Container>
-    </section>
-  )
-}
+    </>
+  );
+};
 
-export default About
+export default About;

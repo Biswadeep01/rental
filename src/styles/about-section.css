@@ -7,15 +7,15 @@
   font-size: 1.1rem;
 }
 
-.section__subtitle{
+.section__subtitle {
   font-size: 1.7rem;
 }
-.member{
+.member {
   margin-top: 50px;
   padding-top: 10px;
   justify-content: center;
 }
-.about__section-members{
+.about__section-members {
   margin-top: 100px;
   padding: auto;
   display: flex;

@@ -1,11 +1,16 @@
-import React from 'react'
-import Testimonial from "../components/UI/Testimonial";
+import React from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Helmet } from "react-helmet-async";
+
+import Testimonial from "../components/UI/Testimonial";
 
 const Testimonials = () => {
   return (
-    <section>
-      <Container>
+    <>
+      <Helmet>
+        <title> Just Rent a Car | Testimonials </title>
+      </Helmet>
+      <Container className="my-5">
         <Row>
           <Col lg="12" className="mb-4 text-center">
             <h6 className="section__subtitle">Our clients says</h6>
@@ -14,8 +19,8 @@ const Testimonials = () => {
           <Testimonial />
         </Row>
       </Container>
-  </section>
-  )
-}
+    </>
+  );
+};
 
-export default Testimonials
+export default Testimonials;

@@ -1,5 +1,5 @@
-import Layout from './components/Layout/Layout';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import Router from "./routes";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -13,12 +13,13 @@ const App = () => {
     <div>
       {loading ? (
         <div className="loader-container">
-            <div className="spinner"></div>
+          <div className="spinner"></div>
         </div>
       ) : (
-        <div> <Layout/></div>)}
+        <Router />
+      )}
     </div>
-);
-}
+  );
+};
 
 export default App;
