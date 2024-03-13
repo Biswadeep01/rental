@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 
 const CarItem = (props) => {
-  const { id, imgUrl, model, carName, automatic, speed, price } = props.item;
+  const { id, imgUrl, person, carName, luggage, price } = props.item;
 
   return (
     <Col lg="4" md="4" sm="6" className="mb-5">
@@ -24,30 +24,19 @@ const CarItem = (props) => {
               className=" d-flex align-items-center gap-1"
               style={{ fontWeight: 500 }}
             >
-              <i class="ri-car-line"></i> {model}
+              <i class="ri-team-line"></i> {person} Persons
             </span>
+            
             <span
               className=" d-flex align-items-center gap-1"
               style={{ fontWeight: 500 }}
             >
-              <i class="ri-settings-2-line"></i> {automatic}
-            </span>
-            <span
-              className=" d-flex align-items-center gap-1"
-              style={{ fontWeight: 500 }}
-            >
-              <i class="ri-timer-flash-line"></i> {speed}
+              <i class="ri-suitcase-line"></i> {luggage} Luggages
             </span>
           </div>
 
           <Link to="/booking-form" state={{ data: props.item }}>
-            <button className="w-50 car__item-btn car__btn-rent">Rent</button>
-          </Link>
-
-          <Link to={`/fleet/${id}`}>
-            <button className=" w-50 car__item-btn car__btn-details">
-              Details
-            </button>
+            <button className="w-100 car__item-btn car__btn-rent">Rent</button>
           </Link>
         </div>
       </div>

@@ -3,7 +3,7 @@
   height: 650px;
   display: flex;
   justify-content: flex-end;
-  background: url("../assets/all-images/hero/hero.jpg");
+  background: linear-gradient(rgb(255, 255, 255), #47e4e4), url("../assets/all-images/hero/hero.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -35,28 +35,28 @@
   left: 390px;
   top: -1px;
   transform: skew(20deg);
-  background-color: #039595c5;
+  background-color: #039595de;
   z-index: 0;
   text-align: center;
 }
 .image1 {
   position: absolute;
-  right: 60px;
-  top: 100px;
-  width: 40%;
+  right: 40px;
+  top: 50px;
+  width: 50%;
   height: 50%;
   z-index: 0;
-  animation: move 3s ease-in-out;
+  animation: move 2.5s ease-in-out;
 }
 
 .image2 {
   position: absolute;
-  left: 100px;
-  top: 270px;
-  width: 30%;
-  height: 35%;
+  left: 20px;
+  top: 210px;
+  width: 38%;
+  height: 40%;
   z-index: 1;
-  animation: moving 3s ease-in-out;
+  animation: moving 2.5s ease-in-out;
 }
 .reserve__btn {
   background: #fff !important;
@@ -64,7 +64,6 @@
   border: none;
   outline: none;
 }
-
 .reserve__btn a {
   text-decoration: none;
   font-weight: 600;
@@ -81,7 +80,7 @@
     right: -450px;
   }
   to {
-    right: 60px;
+    right: 40px;
   }
 }
 @keyframes moving {
@@ -89,7 +88,7 @@
     left: -400px;
   }
   to {
-    left: 70px;
+    left: 20px;
   }
 }
 
@@ -97,6 +96,22 @@
   .slider__item {
     height: 530px;
     max-width: 100vw;
+  }
+  .parallelogram{
+    width: 250px;
+    height: 500px;
+    left: 288px;
+    top: -1px;
+  }
+  .hero-content{
+    left: 260px;
+  }
+  .button {
+    margin-top: -85px;
+    margin-left: -179px ;
+  }
+  .image2{
+    top: 170px;
   }
 
   .slider__content {
@@ -110,10 +125,50 @@
 
 @media only screen and (max-width: 768px) {
   .slider__item {
-    height: 450px;
+    height: 500px;
   }
-
+  .hero-content {
+    position: absolute;
+    left: 40px;
+    text-align: center;
+  }
+  .button {
+    margin-top: -105px;
+    margin-left: -402px ;
+    background: #fff !important;
+    color: #039594 !important;
+    border: none;
+    outline: none;
+    z-index: 1;
+  }
+  .parallelogram {
+    width: 230px;
+    height: 500px;
+    left: 78px;
+    top: -1px;
+  }
+  .image1 {
+    position: absolute;
+    right: -40px;
+    top: 75px;
+    width: 60%;
+    height: 25%;
+    z-index: 0;
+    animation: move 2s ease-in-out;
+  }
+  
+  .image2 {
+    display: none;
+  }
   .slider__content h1 {
     font-size: 1.5rem;
+  }
+  @keyframes move {
+    from {
+      right: -100px;
+    }
+    to {
+      right: -40px;
+    }
   }
 }

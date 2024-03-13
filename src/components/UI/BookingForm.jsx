@@ -52,7 +52,7 @@ const BookingForm = (props) => {
               <Input placeholder="John" />
             </Col>
             <Col md="6">
-              <Label>Second Name</Label>
+              <Label>Last Name</Label>
               <Input placeholder="Doe" />
             </Col>
             <Col md="6">

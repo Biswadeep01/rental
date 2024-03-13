@@ -3,7 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import { Helmet } from "react-helmet-async";
 
 import "../styles/about-section.css";
-import aboutImg from "../assets/all-images/cars-img/bmw-offer.png";
+import aboutImg from "../assets/all-images/cars-img/about-img.png";
 import OurMembers from "../components/UI/OurMembers";
 
 const About = () => {
