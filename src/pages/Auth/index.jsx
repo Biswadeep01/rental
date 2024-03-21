@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // sections
 import SignIn from "./SignIn";
 import SingnUp from "./SignUp";
+import { useAppContext } from "../../context";
+import { useNavigate } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -26,11 +28,19 @@ const StyledContent = ({ children }) => (
 
 export default function AuthWrapper() {
   const [authNavigation, setAuthNavigation] = useState(0);
+  const navigate = useNavigate();
+  const { user } = useAppContext();
 
   const AUTH_SECTION_OBJ = {
     0: <SignIn setAuthNavigation={setAuthNavigation} />,
     1: <SingnUp setAuthNavigation={setAuthNavigation} />,
   };
+
+  useEffect(() => {
+    if (user.token) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
 
   return (
     <>

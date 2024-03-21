@@ -4,6 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AppContext } from "./context/index";
+import ScrollToTop from "./components/ScrollToTop";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "remixicon/fonts/remixicon.css";
@@ -18,6 +19,7 @@ root.render(
       <BrowserRouter>
         <AppContext>
           <App />
+          <ScrollToTop />
         </AppContext>
       </BrowserRouter>
     </HelmetProvider>

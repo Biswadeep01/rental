@@ -1,0 +1,35 @@
+.stepper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #adb5bd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.divider {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #adb5bd;
+  margin: 0 10px;
+}
+
+.completed {
+  background-color: #039594;
+}
+
+.active {
+  background-color: #039594;
+  border: 2px solid #ffffff;
+}

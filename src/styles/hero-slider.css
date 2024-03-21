@@ -3,7 +3,8 @@
   height: 650px;
   display: flex;
   justify-content: flex-end;
-  background: linear-gradient(rgb(255, 255, 255), #47e4e4), url("../assets/all-images/hero/hero.jpg");
+  background: linear-gradient(rgb(255, 255, 255), #47e4e4),
+    url("../assets/all-images/hero/hero.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -43,7 +44,7 @@
   position: absolute;
   right: 40px;
   top: 50px;
-  width: 50%;
+  width: 40%;
   height: 50%;
   z-index: 0;
   animation: move 2.5s ease-in-out;
@@ -53,8 +54,8 @@
   position: absolute;
   left: 20px;
   top: 210px;
-  width: 38%;
-  height: 40%;
+  width: 35%;
+  height: 45%;
   z-index: 1;
   animation: moving 2.5s ease-in-out;
 }
@@ -97,20 +98,20 @@
     height: 530px;
     max-width: 100vw;
   }
-  .parallelogram{
+  .parallelogram {
     width: 250px;
     height: 500px;
     left: 288px;
     top: -1px;
   }
-  .hero-content{
+  .hero-content {
     left: 260px;
   }
   .button {
     margin-top: -85px;
-    margin-left: -179px ;
+    margin-left: -179px;
   }
-  .image2{
+  .image2 {
     top: 170px;
   }
 
@@ -134,7 +135,7 @@
   }
   .button {
     margin-top: -105px;
-    margin-left: -402px ;
+    margin-left: -402px;
     background: #fff !important;
     color: #039594 !important;
     border: none;
@@ -156,7 +157,7 @@
     z-index: 0;
     animation: move 2s ease-in-out;
   }
-  
+
   .image2 {
     display: none;
   }

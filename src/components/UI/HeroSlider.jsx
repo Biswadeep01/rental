@@ -4,7 +4,6 @@ import image2 from "../../assets/all-images/hero/range-rover.png";
 import Typewriter from "../UI/Typewriter";
 import { Container } from "reactstrap";
 import { Link } from "react-router-dom";
-
 import "../../styles/hero-slider.css";
 
 const HeroSlider = () => {
@@ -24,7 +23,10 @@ const HeroSlider = () => {
                 <Typewriter text="Rent A Car" delay={200} />
               </h4>
             </div>
-            <div style={{ position: "absolute", top: 220, left: 480}} className="button">
+            <div
+              style={{ position: "absolute", top: 220, left: 480 }}
+              className="button"
+            >
               <button className="btn reserve__btn mt-2.5">
                 <Link to="/fleet">Reserve Now</Link>
               </button>
