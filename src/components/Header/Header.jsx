@@ -1,8 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../styles/header.css";
 import logo from "../../assets/all-images/LogoM.jpg";
+import { useAppContext } from "../../context";
+import LogoutDialog from "./LogoutDialog";
 
 const navLinks = [
   {
@@ -40,8 +42,21 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const navigate = useNavigate();
+  const { user } = useAppContext();
+
+  const [open, setOpen] = useState(false);
+
   const menuRef = useRef(null);
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setOpen(false);
+    navigate("/home");
+  };
+
   return (
     <header className="header">
       {/* ============ header top ============ */}
@@ -72,18 +87,19 @@ const Header = () => {
               sm="0"
               className="d-flex align-items-center justify-content-end"
             >
-              <button className="header__btn btn ">
-                <Link to="/contact">
-                  <i class="ri-phone-line"></i> Request a call
-                </Link>
-              </button>
+              <Link
+                to="/contact"
+                className="header__btn btn"
+                style={{ textDecoration: "none", color: "#FFFFFF" }}
+              >
+                <i class="ri-phone-line"></i> Request a call
+              </Link>
             </Col>
           </Row>
         </Container>
       </div>
 
       {/* ========== main navigation =========== */}
-
       <div
         className="main__navbar"
         style={{ boxShadow: "5px 5px 5px #000000" }}
@@ -108,16 +124,33 @@ const Header = () => {
                 ))}
               </div>
             </div>
-            <Link
-              to="/auth"
-              className=" d-flex align-items-center gap-2"
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              <i class="ri-login-circle-line"></i> Login
-            </Link>
+
+            {!user.token ? (
+              <Link
+                to="/auth"
+                className="d-flex align-items-center gap-2"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                <i class="ri-login-circle-line" /> Login
+              </Link>
+            ) : (
+              <Link
+                style={{ color: "white", textDecoration: "none" }}
+                onClick={() => setOpen(true)}
+              >
+                <i class="ri-logout-circle-line" /> Logout
+              </Link>
+            )}
           </div>
         </Container>
       </div>
+      {open && (
+        <LogoutDialog
+          open={open}
+          setOpen={setOpen}
+          handleLogout={handleLogout}
+        />
+      )}
     </header>
   );
 };

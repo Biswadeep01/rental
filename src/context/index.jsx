@@ -13,12 +13,23 @@ export const AppContext = ({ children }) => {
   const { Provider } = Context;
   const location = useLocation();
 
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "john.doe@mail.com",
-  });
+  const [user, setUser] = useState({});
 
-  //   useEffect(() => {}, [location]);
+  const handleGetUser = () => {
+    try {
+      const token = localStorage.getItem("token");
+      setUser({
+        user: JSON.parse(localStorage.getItem("user")),
+        token,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    handleGetUser();
+  }, [location]);
 
   const contextobj = {
     user,

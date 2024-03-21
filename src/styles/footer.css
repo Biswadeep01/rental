@@ -12,6 +12,14 @@
   max-width: 120px;
 }
 
+.footer_logo_bg {
+  background-color: #fff;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  padding: 1px;
+}
+
 .footer__logo i {
   color: #fff;
   font-weight: 400;

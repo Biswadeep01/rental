@@ -44,7 +44,7 @@ const Footer = () => {
               <h1>
                 <Link to="/home" className=" d-flex align-items-center gap-2">
                   <span>
-                    <img className="logo" src={logo} alt="logo" />
+                    <img className="logo footer_logo_bg" src={logo} alt="logo" />
                   </span>
                 </Link>
               </h1>

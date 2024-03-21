@@ -7,7 +7,7 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import Fleet from "../pages/Fleet";
 import FleetItem from "../pages/Fleet/FleetItem";
-import BookingForm from "../components/UI/BookingForm";
+import BookingForm from "../pages/BookingSection";
 import Services from "../pages/Services";
 import Blog from "../pages/Blog";
 import Testimonials from "../pages/Testimonials";

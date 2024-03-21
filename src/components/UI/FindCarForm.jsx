@@ -6,7 +6,6 @@ import "../../styles/find-car-form.css";
 const FindCarForm = () => {
   return (
     <Form className="form">
-      <h3> Find your best car here </h3>
       <div
         style={{ marginTop: "1rem" }}
         className="d-flex align-items-center justify-content-between flex-wrap"
