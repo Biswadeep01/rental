@@ -21,7 +21,7 @@ const App = () => {
     <div>
       {loading ? (
         <div className="loader-container">
-          <div className="spinner"></div>
+          <span class="loader"></span>
         </div>
       ) : (
         <Router />

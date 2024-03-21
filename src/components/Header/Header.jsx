@@ -102,7 +102,7 @@ const Header = () => {
       {/* ========== main navigation =========== */}
       <div
         className="main__navbar"
-        style={{ boxShadow: "5px 5px 5px #000000" }}
+        style={{ boxShadow: "5px 5px 5px #000000"}}
       >
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">

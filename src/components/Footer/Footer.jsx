@@ -11,11 +11,11 @@ const quickLinks = [
     display: "About",
   },
   {
-    path: "#",
+    path: "/privacy",
     display: "Privacy Policy",
   },
   {
-    path: "#",
+    path: "/terms",
     display: "Terms of Use",
   },
   {
@@ -109,10 +109,10 @@ const Footer = () => {
           <Col lg="12">
             <div className="footer__bottom">
               <p style={{ textAlign: "center", marginTop: "1rem" }}>
-                <i class="ri-copyright-line"></i>&nbsp; Copyright {year},
+                <i class="ri-copyright-line"></i>&nbsp;Just Rent-A-Car, {year} ||
                 Developed by
-                <Link to="#" className="design_link">
-                  &nbsp; JMT Solutions
+                <Link to="https://blueonnix.com/" className="design_link" target="_blank">
+                  &nbsp; BlueOnNix
                 </Link>
               </p>
               <p style={{ textAlign: "center" }}>All rights reserved.</p>
