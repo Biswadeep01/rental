@@ -21,9 +21,12 @@ import * as yup from "yup";
 import { signIn } from "../../services";
 
 const validationSchema = yup.object({
-  phoneNumber: yup
+  email: yup
     .string()
-    .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Invalid email"
+    )
     .required("*required"),
   password: yup
     .string()
@@ -34,16 +37,17 @@ const validationSchema = yup.object({
 const SignIn = ({ setAuthNavigation }) => {
   const navigate = useNavigate();
   const [message, setMessage] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     validationSchema,
     initialValues: {
-      phoneNumber: "",
+      email: "",
       password: "",
     },
     onSubmit: async (values) => {
       const response = await signIn({
-        phoneNumber: values.phoneNumber,
+        email: values.email,
         password: values.password,
       });
       console.log(response);
@@ -95,16 +99,16 @@ const SignIn = ({ setAuthNavigation }) => {
               <div style={styles.formContainer}>
                 <Row>
                   <Col>
-                    <Label>Enter your phoneNumber</Label>
+                    <Label>Enter your email</Label>
                     <Input
-                      placeholder="9988776655"
-                      name="phoneNumber"
-                      value={formik.values.phoneNumber}
+                      placeholder="john@mail.com"
+                      name="email"
+                      value={formik.values.email}
                       onChange={formik.handleChange}
                     />
-                    {Boolean(formik.errors.phoneNumber) && (
+                    {Boolean(formik.errors.email) && (
                       <FormText style={styles.helperText} color={"#c1121f"}>
-                        {formik.errors.phoneNumber}
+                        {formik.errors.email}
                       </FormText>
                     )}
                   </Col>
@@ -115,15 +119,32 @@ const SignIn = ({ setAuthNavigation }) => {
                     <Input
                       placeholder="********"
                       name="password"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       value={formik.values.password}
                       onChange={formik.handleChange}
                     />
                     {Boolean(formik.errors.password) && (
-                      <FormText style={styles.helperText} color={"#c1121f"}>
-                        {formik.errors.password}
-                      </FormText>
+                      <span style={{ position: "absolute" }}>
+                        <FormText style={styles.helperText} color={"#c1121f"}>
+                          {formik.errors.password}
+                        </FormText>
+                      </span>
                     )}
+                    <span
+                      style={{
+                        position: "absolute",
+                        right: 28,
+                        bottom: 156,
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <i className="ri-eye-off-fill ri-lg" />
+                      ) : (
+                        <i className="ri-eye-fill ri-lg" />
+                      )}
+                    </span>
                   </Col>
                 </Row>
                 <Button style={styles.signInBtn} type="submit">
@@ -157,6 +178,7 @@ const styles = {
   },
   signInBtn: {
     background: "#039594",
+    marginTop: 10,
   },
   bottomText: {
     fontSize: 15,

@@ -22,9 +22,12 @@ import { signUp } from "../../services";
 const validationSchema = yup.object({
   firstName: yup.string().required("*required"),
   lastName: yup.string().required("*required"),
-  phoneNumber: yup
+  email: yup
     .string()
-    .matches(/^[1-9][0-9]{9}$/, "Invalid phone number")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Invalid email"
+    )
     .required("*required"),
   password: yup
     .string()
@@ -38,13 +41,14 @@ const validationSchema = yup.object({
 
 const SignUp = ({ setAuthNavigation }) => {
   const [message, setMessage] = useState(""); // success | error
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     validationSchema,
     initialValues: {
       firstName: "",
       lastName: "",
-      phoneNumber: "",
+      email: "",
       password: "",
       confirmPassword: "",
     },
@@ -52,7 +56,7 @@ const SignUp = ({ setAuthNavigation }) => {
       const response = await signUp({
         firstName: values.firstName,
         lastName: values.lastName,
-        phoneNumber: values.phoneNumber,
+        email: values.email,
         password: values.password,
       });
       if (!response) {
@@ -136,16 +140,16 @@ const SignUp = ({ setAuthNavigation }) => {
                 </Row>
                 <Row>
                   <Col>
-                    <Label>Enter phone number</Label>
+                    <Label>Enter your email</Label>
                     <Input
-                      placeholder="9988776655"
-                      name="phoneNumber"
-                      value={formik.values.phoneNumber}
+                      placeholder="john@mail.com"
+                      name="email"
+                      value={formik.values.email}
                       onChange={formik.handleChange}
                     />
-                    {Boolean(formik.errors.phoneNumber) && (
+                    {Boolean(formik.errors.email) && (
                       <FormText style={styles.helperText} color={"#c1121f"}>
-                        {formik.errors.phoneNumber}
+                        {formik.errors.email}
                       </FormText>
                     )}
                   </Col>
@@ -156,14 +160,32 @@ const SignUp = ({ setAuthNavigation }) => {
                     <Input
                       placeholder="********"
                       name="password"
+                      type={showPassword ? "text" : "password"}
                       value={formik.values.password}
                       onChange={formik.handleChange}
                     />
                     {Boolean(formik.errors.password) && (
-                      <FormText style={styles.helperText} color={"#c1121f"}>
-                        {formik.errors.password}
-                      </FormText>
+                      <span style={{ position: "absolute" }}>
+                        <FormText style={styles.helperText} color={"#c1121f"}>
+                          {formik.errors.password}
+                        </FormText>
+                      </span>
                     )}
+                    <span
+                      style={{
+                        position: "absolute",
+                        right: 28,
+                        marginTop: -28,
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <i className="ri-eye-off-fill ri-lg" />
+                      ) : (
+                        <i className="ri-eye-fill ri-lg" />
+                      )}
+                    </span>
                   </Col>
                 </Row>
                 <Row>
@@ -171,6 +193,7 @@ const SignUp = ({ setAuthNavigation }) => {
                     <Label>Confirm password</Label>
                     <Input
                       placeholder="********"
+                      type="password"
                       name="confirmPassword"
                       value={formik.values.confirmPassword}
                       onChange={formik.handleChange}
@@ -209,7 +232,7 @@ const styles = {
   formContainer: {
     display: "flex",
     flexDirection: "column",
-    gap: 20,
+    gap: 24,
   },
   signUpBtn: {
     background: "#039594",

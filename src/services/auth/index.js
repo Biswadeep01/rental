@@ -1,11 +1,11 @@
 import { axiosBaseQuery } from "../axiosBaseQuery";
 
-export const signIn = async ({ phoneNumber, password }) => {
+export const signIn = async ({ email, password }) => {
   try {
     const response = await axiosBaseQuery({
-      url: "/users/signin",
+      url: "/users/signIn",
       method: "POST",
-      data: { phoneNumber, password },
+      data: { email, password },
     });
     localStorage.setItem("user", JSON.stringify(response.data.user));
     localStorage.setItem("token", response.data.token);
@@ -19,14 +19,14 @@ export const signIn = async ({ phoneNumber, password }) => {
 export const signUp = async ({
   firstName,
   lastName,
-  phoneNumber,
+  email,
   password,
 }) => {
   try {
     const response = await axiosBaseQuery({
-      url: "/users/signup",
+      url: "/users/signUp",
       method: "POST",
-      data: { firstName, lastName, phoneNumber, password },
+      data: { firstName, lastName, email, password },
     });
     return response.data;
   } catch (err) {
