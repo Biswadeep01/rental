@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import {
   Container,
@@ -11,12 +11,11 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import "../../../styles/booking-form.css";
 import { useAppContext } from "../../../context";
-import { bookRide } from "../../../services/rentals";
+import { bookRide, isCarAvailable } from "../../../services/rentals";
 import { useAppStore } from "../../../store";
+import InfoTableDialog from "../InfoTable";
 
 const options = [
   { label: "0", value: 0 },
@@ -28,50 +27,39 @@ const options = [
   { label: ">5", value: ">5" },
 ];
 
-const validationSchema = yup.object({
-  firstName: yup.string().required("*required"),
-  lastName: yup.string().required("*required"),
-  email: yup
-    .string()
-    .matches(
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      "Invalid email"
-    ),
-  phoneNumber: yup.string().required("*required"),
-  fromAddress: yup.string().required("*required"),
-  toAddress: yup.string().required("*required"),
-  pickupDate: yup.string().required("*required"),
-  pickupTime: yup.string().required("*required"),
-  returnDate: yup.string().required("*required"),
-  returnTime: yup.string().required("*required"),
-  message: yup.string(),
-});
-
-const BookingForm = () => {
+const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
   const { user } = useAppContext();
   const { car } = useAppStore();
 
-  const formik = useFormik({
-    validationSchema,
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      fromAddress: "",
-      toAddress: "",
-      pickupDate: dayjs(new Date()).format("YYYY-MM-DD"),
-      pickupTime: "",
-      returnDate: "",
-      returnTime: "",
-      message: "",
-      passengers: 0,
-      luggages: 0,
-    },
-    onSubmit: (values) => {
-      bookRide({ ...formik.values, carId: car.id, userId: user.user.id });
-      //   console.log(values);
-    },
+  const [message, setMessage] = useState({
+    type: "",
+    text: "",
   });
+
+  const handleConfirmation = async () => {
+    const { pickupDate, pickupTime, returnDate, returnTime } = bookingObj;
+    const pickupDateTime = `${pickupDate}T${pickupTime}:00`;
+    const returnDateTime = `${returnDate}T${returnTime}:00`;
+    const response = await isCarAvailable({
+      carId: car.id,
+      pickupDateTime,
+      returnDateTime,
+    });
+    if (response.message === "Car available") {
+      await bookRide({
+        ...bookingObj,
+        carId: car.id,
+        userId: user.user.id,
+      });
+      setMessage({ type: "success", text: "Thank You! Ride confirmed" });
+      setTimeout(() => {
+        setOpen(false);
+        formik.handleReset();
+      }, 1500);
+    } else {
+      setMessage({ type: "error", text: "Sorry! This car is not available" });
+    }
+  };
 
   return (
     <Container className="my-5">
@@ -165,7 +153,7 @@ const BookingForm = () => {
           </Col>
           <Col md="6">
             <FormGroup col>
-              <Label>Choose number of passengers</Label>
+              <Label>Passengers</Label>
               <Col>
                 <Input
                   type="select"
@@ -173,6 +161,7 @@ const BookingForm = () => {
                   value={formik.values.passengers}
                   onChange={formik.handleChange}
                   style={{ height: "3rem" }}
+                  disabled
                 >
                   {options.map((op) => (
                     <option value={op.value}>{op.label}</option>
@@ -183,7 +172,7 @@ const BookingForm = () => {
           </Col>
           <Col md="6">
             <FormGroup col>
-              <Label>Choose number of luggages</Label>
+              <Label>Luggages</Label>
               <Col>
                 <Input
                   type="select"
@@ -191,6 +180,7 @@ const BookingForm = () => {
                   value={formik.values.luggages}
                   onChange={formik.handleChange}
                   style={{ height: "3rem" }}
+                  disabled
                 >
                   {options.map((op) => (
                     <option value={op.value}>{op.label}</option>
@@ -299,6 +289,17 @@ const BookingForm = () => {
           </Col>
         </Row>
       </Form>
+      {open && (
+        <InfoTableDialog
+          loading={loading}
+          open={open}
+          setOpen={setOpen}
+          data={bookingObj}
+          handleConfirmation={handleConfirmation}
+          message={message}
+          setMessage={setMessage}
+        />
+      )}
     </Container>
   );
 };

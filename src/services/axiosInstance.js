@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const SERVER_URL = "https://just-rent-a-car-server.vercel.app";
+// const SERVER_URL = "http://localhost:5000";
 
 export const axiosInstance = axios.create({
   baseURL: `${SERVER_URL}/api`,
