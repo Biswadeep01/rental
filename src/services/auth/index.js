@@ -27,7 +27,7 @@ export const signUp = async ({
       url: "/users/signUp",
       method: "POST",
       data: { firstName, lastName, email, password },
-    });
+      });
     return response.data;
   } catch (err) {
     console.log(err.message);

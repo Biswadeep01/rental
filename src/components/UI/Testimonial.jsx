@@ -8,36 +8,36 @@ import ava02 from "../../assets/all-images/ava-2.jpg";
 import ava03 from "../../assets/all-images/ava-3.jpg";
 import ava04 from "../../assets/all-images/ava-4.jpg";
 
-const Testimonial = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    speed: 1000,
-    swipeToSlide: true,
-    autoplaySpeed: 2000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
+const settings = {
+  dots: true,
+  infinite: true,
+  autoplay: true,
+  speed: 1000,
+  swipeToSlide: true,
+  autoplaySpeed: 2000,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: true,
       },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
+    },
+    {
+      breakpoint: 576,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
       },
-    ],
-  };
+    },
+  ],
+};
 
+const Testimonial = () => {
   return (
     <Slider {...settings}>
       <div className="testimonial py-4 px-3">
