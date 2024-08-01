@@ -80,11 +80,11 @@ const Footer = () => {
                 Mailing address: P.O. Box 302476 St. Thomas, US Virgin Islands
                 00803
               </p>
-              <p className="office__info">Phone: (340) 776-3730</p>
+              <p className="office__info">Phone: 340-208-0828</p>
               <p className="office__info">Email: Info@just-rentacar.com</p>
               <p className="office__info">Reservation@just-rentacar.com</p>
-              <p className="office__info">Office Time: 10 AM - 7 PM</p>
-              <p className="office__info">Reservation Time: 10 AM - 6 PM</p>
+              <p className="office__info">Office Time: 09 A.M. - 05 P.M.</p>
+              <p className="office__info">Reservation Time: 08 A.M. - 06 P.M.</p>
             </div>
           </Col>
 
