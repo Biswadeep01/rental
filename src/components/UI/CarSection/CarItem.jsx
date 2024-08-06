@@ -32,7 +32,7 @@ const CarItem = ({
         <img
           src={imageUrl}
           alt={model}
-          style={{ height: 200, width: "100%" }}
+          style={{ height: 200, width: "108%", objectFit: "cover" }}
         />
       </div>
 
