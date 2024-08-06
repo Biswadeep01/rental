@@ -52,10 +52,11 @@
 
 .image2 {
   position: absolute;
-  left: 20px;
-  top: 210px;
-  width: 35%;
-  height: 45%;
+  border-radius: 50%;
+  left: 40px;
+  top: 100px;
+  width: 25%;
+  height: 50%;
   z-index: 1;
   animation: moving 2.5s ease-in-out;
 }

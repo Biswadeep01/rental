@@ -1,6 +1,6 @@
 import React from "react";
 import image1 from "../../assets/all-images/hero/BMW.png";
-import image2 from "../../assets/all-images/hero/range-rover.png";
+import image2 from "../../assets/all-images/home.png";
 import Typewriter from "../UI/Typewriter";
 import { Container } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -31,7 +31,7 @@ const HeroSlider = () => {
                 <Link to="/fleet">Reserve Now</Link>
               </button>
             </div>
-            <img src={image1} className="image1" alt="" />
+            
           </div>
         </Container>
       </div>
