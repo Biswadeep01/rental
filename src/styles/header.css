@@ -46,7 +46,7 @@
 }
 
 .logo {
-  width: 120px;
+  width: 250px !important;
 }
 
 .header__location {

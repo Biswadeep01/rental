@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../styles/header.css";
-import logo from "../../assets/all-images/LogoM.jpg";
+import logo from "../../assets/all-images/logo.png";
 import { useAppContext } from "../../context";
 import LogoutDialog from "./LogoutDialog";
 

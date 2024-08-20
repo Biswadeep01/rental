@@ -44,7 +44,7 @@ const Footer = () => {
               <h1>
                 <Link to="/home" className=" d-flex align-items-center gap-2">
                   <span>
-                    <img className="logo footer_logo_bg" src={logo} alt="logo" />
+                    <img className="logo-f footer_logo_bg" src={logo} alt="logo" />
                   </span>
                 </Link>
               </h1>
@@ -88,18 +88,17 @@ const Footer = () => {
             </div>
           </Col>
 
-          <Col lg="3" md="4" sm="12">
+          <Col lg="3" md="4" sm="6">
             <div className="mb-4">
               <h5 className="footer-title">Location</h5>
               <div className="map-wrap">
                 <MapContainer
                   center={[18.336, -64.917503]}
                   zoom={15}
-                  scrollWheelZoom={false}
-                >
+                  scrollWheelZoom={false}>
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   <Marker position={[18.336, -64.917503]}>
-                    <Popup>Find us here</Popup>
+                    <Popup>Just Rent a Car</Popup>
                   </Marker>
                 </MapContainer>
               </div>

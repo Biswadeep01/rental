@@ -36,9 +36,9 @@ const serviceData = [
 
   {
     id: 6,
-    title: "Airport Service",
+    title: "Airport / Shuttle Service",
     icon: "ri-flight-takeoff-line",
-    desc: "Shuttle Service",
+    desc: "",
   },
 ];
 

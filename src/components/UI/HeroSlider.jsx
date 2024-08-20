@@ -17,10 +17,10 @@ const HeroSlider = () => {
 
             <div className="hero-content">
               <h1 className="text-light mb-1">
-                <Typewriter text="Just" delay={100} />
+                <Typewriter text="Just" delay={300} />
               </h1>
               <h4 className="text-light mb-2">
-                <Typewriter text="Rent A Car" delay={200} />
+                <Typewriter text="Rent A Car" delay={250} />
               </h4>
             </div>
             <div
