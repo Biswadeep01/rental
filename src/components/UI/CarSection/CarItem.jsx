@@ -40,13 +40,20 @@ const CarItem = ({
           ${pricePerDay}.00 <span>/ day</span>
         </h6>
         <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-1">
-          <span
-            className=" d-flex align-items-center gap-1"
-            style={{ fontWeight: 500 }}
-          >
-            <i class="ri-team-line" /> {passengerCapacity} Persons (
-            {passengers.adult} Adult {passengers.child} Child)
-          </span>
+          <div>
+            <span
+              className=" d-flex align-items-center gap-1"
+              style={{ fontWeight: 500 }}
+            >
+              <i class="ri-team-line" /> {passengers.adult} Adult
+            </span>
+            <span
+              className=" d-flex align-items-center gap-1"
+              style={{ fontWeight: 500 }}
+            >
+              <i class="ri-team-line" /> {passengers.child} Child
+            </span>
+          </div>
 
           <span
             className=" d-flex align-items-center gap-1"
