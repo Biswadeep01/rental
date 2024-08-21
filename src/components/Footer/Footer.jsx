@@ -50,10 +50,10 @@ const Footer = () => {
               </h1>
             </div>
             <p className="footer__logo-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequuntur, distinctio, itaque reiciendis ab cupiditate harum ex
-              quam veniam, omnis expedita animi quibusdam obcaecati mollitia?
-              Delectus et ad illo recusandae temporibus?
+            Just Rent-A-Car. When you need a convenient, friendly car rental service, our company is here to make your stay more pleasant. 
+            Our great service includes free pick up and drop off, and we are located near the airport so you can be on your way without delay. 
+            We honor Veteran and seniour citizen discounts. Additionally, we apply discounts to rentals that last five days and more. 
+            Our professionally detailed cars are the safe, comfortable way to get around town.
             </p>
           </Col>
 
