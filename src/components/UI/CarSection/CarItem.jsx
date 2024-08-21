@@ -4,7 +4,6 @@ import "../../../styles/car-item.css";
 import { useAppStore } from "../../../store";
 import { Button } from "reactstrap";
 import { useAppContext } from "../../../context";
-import isEmpty from "lodash.isempty";
 import LoginDialog from "../../LoginDialog";
 
 const CarItem = ({
@@ -14,6 +13,10 @@ const CarItem = ({
   imageUrl,
   passengerCapacity,
   luggageCapacity,
+  passengers = {
+    adult: 0,
+    child: 0,
+  },
 }) => {
   const navigate = useNavigate();
   const { fetchCar } = useAppStore();
@@ -32,7 +35,7 @@ const CarItem = ({
         <img
           src={imageUrl}
           alt={model}
-          style={{ height: 150, width: "100%", objectFit: "cover"}}
+          style={{ height: 150, width: "100%", objectFit: "cover" }}
         />
       </div>
 
@@ -41,12 +44,13 @@ const CarItem = ({
         <h6 className="rent__price text-center mt-">
           ${pricePerDay}.00 <span>/ day</span>
         </h6>
-        <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
+        <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-1">
           <span
             className=" d-flex align-items-center gap-1"
             style={{ fontWeight: 500 }}
           >
-            <i class="ri-team-line" /> {passengerCapacity} Persons
+            <i class="ri-team-line" /> {passengerCapacity} Persons (
+            {passengers.adult} Adult {passengers.child} Child)
           </span>
 
           <span

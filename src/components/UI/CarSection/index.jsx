@@ -4,7 +4,7 @@ import CarItem from "./CarItem";
 import { useAppStore } from "../../../store";
 
 const CarSection = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const { cars } = useAppStore();
 
   return (
