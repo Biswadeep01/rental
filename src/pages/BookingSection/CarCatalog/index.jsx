@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { Card, CardImgOverlay, CardText, CardTitle, Container, Row, Col, Spinner, Button} from "reactstrap";
+import {
+  Card,
+  CardText,
+  CardTitle,
+  Container,
+  Row,
+  Col,
+  Spinner,
+  Button,
+} from "reactstrap";
 import isEmpty from "lodash.isempty";
 import CarItem from "../../../components/UI/CarSection/CarItem";
 import "../../../styles/car-item.css";
 import { useAppStore } from "../../../store";
-import { useAppContext } from "../../../context";
 
 const CarCatalog = ({ handleStepChange }) => {
   const { car, cars } = useAppStore();
@@ -55,14 +63,9 @@ export default CarCatalog;
 const SelectedCar = ({ handleStepChange }) => {
   // { model, pricePerDay, passengerCapacity, luggageCapacity }
   const { car } = useAppStore();
-  const { user } = useAppContext();
   return (
     <div className="mb-4">
-      <Card 
-        className="my-2"
-        color="dark"
-        outline
-      >
+      <Card className="my-2" color="dark" outline>
         <div
           style={{
             display: "flex",
@@ -79,17 +82,14 @@ const SelectedCar = ({ handleStepChange }) => {
               style={{ width: 500, height: 300 }}
             />
           </div>
-            <CardTitle tag="h4">
-              {car.model}
-            </CardTitle>
-            <CardText>
-              Price: ${car.pricePerDay}.00 <span>/ day</span>
-            </CardText>
+          <CardTitle tag="h4">{car.model}</CardTitle>
+          <CardText>
+            Price: ${car.pricePerDay}.00 <span>/ day</span>
+          </CardText>
           <Button
             onClick={() => handleStepChange(2)}
             className="booking mt-2"
             style={{ width: "100%" }}
-            disabled={!user.token}
           >
             Proceed
           </Button>

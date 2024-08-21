@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
-import { Alert, Container, Col } from "reactstrap";
+import { Container, Col } from "reactstrap";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import dayjs from "dayjs";
@@ -32,7 +31,6 @@ const validationSchema = yup.object({
 });
 
 const BookingSection = () => {
-  const navigate = useNavigate();
   const { user } = useAppContext();
   const { car } = useAppStore();
 
@@ -92,12 +90,6 @@ const BookingSection = () => {
   };
 
   useEffect(() => {
-    if (!user.token) {
-      navigate("/auth");
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
     formik.setValues({
       ...formik.values,
       luggages: car.luggageCapacity,
@@ -124,15 +116,6 @@ const BookingSection = () => {
           totalSteps={3}
           handleStepChange={handleStepChange}
         />
-
-        {!user.token && (
-          <Container>
-            <Alert color="danger">
-              You must <b>Login</b> first to book ride.{" "}
-              <Link to="/auth">Click here</Link>
-            </Alert>
-          </Container>
-        )}
 
         {navObj[currentStep]}
       </Container>

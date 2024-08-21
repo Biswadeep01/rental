@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/car-item.css";
 import { useAppStore } from "../../../store";
 import { Button } from "reactstrap";
-import { useAppContext } from "../../../context";
-import LoginDialog from "../../LoginDialog";
 
 const CarItem = ({
   id,
@@ -20,13 +18,10 @@ const CarItem = ({
 }) => {
   const navigate = useNavigate();
   const { fetchCar } = useAppStore();
-  const { user } = useAppContext();
-  const [open, setOpen] = useState(false);
 
   const handleRedirection = (carId) => {
     fetchCar(carId);
-    if (user.token) navigate("/booking-form");
-    else setOpen(true);
+    navigate("/booking-form");
   };
 
   return (
@@ -71,7 +66,6 @@ const CarItem = ({
           Rent
         </Button>
       </div>
-      {open && <LoginDialog open={open} setOpen={setOpen} />}
     </div>
   );
 };

@@ -12,7 +12,6 @@ import {
   Input,
 } from "reactstrap";
 import "../../../styles/booking-form.css";
-import { useAppContext } from "../../../context";
 import { bookRide, isCarAvailable } from "../../../services/rentals";
 import { useAppStore } from "../../../store";
 import InfoTableDialog from "../InfoTable";
@@ -28,7 +27,6 @@ const options = [
 ];
 
 const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
-  const { user } = useAppContext();
   const { car } = useAppStore();
 
   const [message, setMessage] = useState({
@@ -49,7 +47,6 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
       await bookRide({
         ...bookingObj,
         carId: car.id,
-        userId: user.user.id,
       });
       setMessage({ type: "success", text: "Thank You! Ride confirmed" });
       setTimeout(() => {
@@ -278,12 +275,7 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
             </FormGroup>
           </Col>
           <Col md="12">
-            <Button
-              type="submit"
-              className="booking"
-              style={{ width: "100%" }}
-              disabled={!user.token}
-            >
+            <Button type="submit" className="booking" style={{ width: "100%" }}>
               Confirm details
             </Button>
           </Col>
