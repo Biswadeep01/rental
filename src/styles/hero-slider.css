@@ -52,12 +52,12 @@
 
 .image2 {
   position: absolute;
-  left: 20px;
+  left: 18px;
   top: 120px;
-  width: 460px;
+  width: 500px;
   height: 50%;
   z-index: 1;
-  animation: moving 3s ease-in-out;
+  animation: moving 2.8s ease-in-out;
 }
 .reserve__btn {
   background: #fff !important;
