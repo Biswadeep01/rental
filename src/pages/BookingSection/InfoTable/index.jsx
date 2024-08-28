@@ -13,6 +13,7 @@ import {
   ToastBody,
 } from "reactstrap";
 import dayjs from "dayjs";
+import isEmpty from "lodash.isempty";
 
 function InfoTableDialog({
   loading,
@@ -106,6 +107,17 @@ function InfoTableDialog({
                 <td>Luggages</td>
                 <td>{data.luggages}</td>
               </tr>
+              {!isEmpty(data.options) && (
+                <>
+                  {data.options.map((option, index) => (
+                    <tr key={index}>
+                      <th scope="row">{index + 10}</th>
+                      <td>{option.label}</td>
+                      <td>$ {option.price}</td>
+                    </tr>
+                  ))}
+                </>
+              )}
             </tbody>
           </Table>
         </ModalBody>

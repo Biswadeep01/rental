@@ -102,13 +102,14 @@ const Header = () => {
       {/* ========== main navigation =========== */}
       <div
         className="main__navbar"
-        style={{ boxShadow: "5px 5px 5px #000000"}}
+        style={{ boxShadow: "5px 5px 5px #000000" }}
       >
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
             <span className="mobile__menu">
               <i class="ri-menu-line" onClick={toggleMenu}></i>
             </span>
+
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <div className="menu">
                 {navLinks.map((item, index) => (
@@ -134,16 +135,29 @@ const Header = () => {
                 <i class="ri-login-circle-line" /> Login
               </Link>
             ) : (
-              <Link
-                style={{ color: "white", textDecoration: "none" }}
-                onClick={() => setOpen(true)}
-              >
-                <i class="ri-logout-circle-line" /> Logout
-              </Link>
+              <div className="d-flex align-items-center gap-4">
+                {user?.user?.role === "admin" && (
+                  <Link
+                    to="/admin/home"
+                    className="d-flex align-items-center gap-2"
+                    style={{ textDecoration: "none", color: "#FFFFFF" }}
+                  >
+                    <i class="ri-admin-fill" /> Admin
+                  </Link>
+                )}
+
+                <Link
+                  style={{ color: "white", textDecoration: "none" }}
+                  onClick={() => setOpen(true)}
+                >
+                  <i class="ri-logout-circle-line" /> Logout
+                </Link>
+              </div>
             )}
           </div>
         </Container>
       </div>
+
       {open && (
         <LogoutDialog
           open={open}

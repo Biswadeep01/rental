@@ -1,26 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col } from "reactstrap";
-import "../../styles/blog-item.css";
 import { Link } from "react-router-dom";
-import blogData from "../../assets/data/blogData";
-
-const BlogList = () => {
-  return (
-    <>
-      {blogData.map((item) => (
-        <BlogItem item={item} key={item.id} />
-      ))}
-    </>
-  );
-};
+import dayjs from "dayjs";
+import isEmpty from "lodash.isempty";
+import { apiGetBlogs } from "../../firebase/firestore/queries";
+import "../../styles/blog-item.css";
 
 const BlogItem = ({ item }) => {
-  const { imgUrl, title, author, date, description, time } = item;
+  const { image, title, author, createdAt, description, time } = item;
 
   return (
     <Col lg="4" md="6" sm="6" className="mb-5">
       <div className="blog__item">
-        <img src={imgUrl} alt="" className="w-100" />
+        <img src={image} alt="" className="w-100" />
         <div className="blog__info p-3">
           <Link to={`/blogs/${title}`} className="blog__title">
             {title}
@@ -42,17 +34,53 @@ const BlogItem = ({ item }) => {
 
             <div className=" d-flex align-items-center gap-3">
               <span className=" d-flex align-items-center gap-1 section__description">
-                <i class="ri-calendar-line"></i> {date}
+                <i class="ri-calendar-line"></i>{" "}
+                {dayjs(createdAt).format("DD/MM/YYYY")}
               </span>
 
               <span className=" d-flex align-items-center gap-1 section__description">
-                <i class="ri-time-line"></i> {time}
+                <i class="ri-time-line"></i> {dayjs(time).format("hh:mm A")}
               </span>
             </div>
           </div>
         </div>
       </div>
     </Col>
+  );
+};
+
+const BlogList = () => {
+  const [blogs, setBlogs] = useState([]);
+
+  const handleGetBlogs = async () => {
+    const b = await apiGetBlogs();
+    setBlogs(b);
+  };
+
+  useEffect(() => {
+    handleGetBlogs();
+  }, []);
+
+  return (
+    <>
+      {isEmpty(blogs) ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "50px",
+          }}
+        >
+          <h6 className="section__subtitle">No blogs found</h6>
+        </div>
+      ) : (
+        <>
+          {blogs?.map((item) => (
+            <BlogItem item={item} key={item.id} />
+          ))}
+        </>
+      )}
+    </>
   );
 };
 

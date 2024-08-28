@@ -10,6 +10,7 @@ import Stepper from "../../components/UI/Stepper";
 import CarCatalog from "./CarCatalog";
 import BookingForm from "./BookingForm";
 import { useAppStore } from "../../store";
+import { apiGetOptions } from "../../firebase/firestore/queries";
 
 const validationSchema = yup.object({
   firstName: yup.string().required("*required"),
@@ -37,6 +38,7 @@ const BookingSection = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState([]);
   const [bookingObj, setBookingObj] = useState({});
+  const [additionalOptions, setAdditionalOptions] = useState([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -53,8 +55,10 @@ const BookingSection = () => {
       returnDate: "",
       returnTime: "",
       message: "",
-      passengers: car.passengerCapacity,
+      adult: car?.passengers?.adult || 0,
+      child: car?.passengers?.child || 0,
       luggages: car.luggageCapacity,
+      options: [],
     },
     onSubmit: (values) => {
       try {
@@ -85,17 +89,30 @@ const BookingSection = () => {
         open={open}
         setOpen={setOpen}
         loading={loading}
+        additionalOptions={additionalOptions}
       />
     ),
+  };
+
+  const handleGetAdditionalOptions = async () => {
+    const data = await apiGetOptions();
+    if (data) {
+      setAdditionalOptions(data.options);
+    }
   };
 
   useEffect(() => {
     formik.setValues({
       ...formik.values,
       luggages: car.luggageCapacity,
-      passengers: car.passengerCapacity,
+      adult: car?.passengers?.adult || 0,
+      child: car?.passengers?.child || 0,
     });
   }, [car]);
+
+  useEffect(() => {
+    handleGetAdditionalOptions();
+  }, []);
 
   return (
     <>

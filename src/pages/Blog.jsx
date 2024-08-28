@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Helmet } from "react-helmet-async";
-
 import BlogList from "../components/UI/BlogList";
 
 const Blog = () => {

@@ -1,4 +1,16 @@
 import { Navigate, useRoutes } from "react-router-dom";
+
+import { AdminLayout } from "../components/Layout/AdminLayout";
+import {
+  HomeSettings,
+  AboutSettings,
+  FleetSettings,
+  ServiceSettings,
+  BlogsSettings,
+  TestimaonialSettings,
+  FooterSettings,
+} from "../components/Admin";
+
 import PlatformLayout from "../components/Layout/PlatformLayout";
 import Layout from "../components/Layout/404";
 
@@ -20,6 +32,19 @@ export default function Router() {
     {
       path: "/auth",
       element: <AuthWrapper />,
+    },
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        { path: "home", element: <HomeSettings /> },
+        { path: "about", element: <AboutSettings /> },
+        { path: "services", element: <ServiceSettings /> },
+        { path: "fleet", element: <FleetSettings /> },
+        { path: "blog", element: <BlogsSettings /> },
+        { path: "testimonials", element: <TestimaonialSettings /> },
+        { path: "footer", element: <FooterSettings /> },
+      ],
     },
     {
       path: "/",
