@@ -1,5 +1,16 @@
+@font-face {
+  font-family: "Matter";
+  src: local("Matter"), url("./assets/fonts/Matter.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Brockmann";
+  src: local("Brockmann"),
+    url("./assets/fonts/Brockmann.otf") format("opentype");
+}
+
 * {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: "Matter", Georgia, "Times New Roman", Times, serif;
 }
 
 /* ========= pre-define css ========= */
@@ -91,13 +102,13 @@ section {
   height: 48px;
   display: inline-block;
   position: relative;
-  background: #FFF;
+  background: #fff;
   border-radius: 48px 48px 0 0;
   box-sizing: border-box;
   overflow: hidden;
 }
 .loader::after {
-  content: '';  
+  content: "";
   box-sizing: border-box;
   position: absolute;
   width: 24px;
@@ -109,7 +120,7 @@ section {
   bottom: 0;
 }
 .loader::before {
-  content: '';  
+  content: "";
   position: absolute;
   width: 4px;
   height: 32px;
@@ -130,28 +141,36 @@ section {
   10% {
     transform: rotate(-40deg);
   }
-  20%, 45%, 35% {
+  20%,
+  45%,
+  35% {
     transform: rotate(-10deg);
   }
-  40%, 30% {
+  40%,
+  30% {
     transform: rotate(-30deg);
   }
-  50%, 60% {
+  50%,
+  60% {
     transform: rotate(20deg);
   }
-  55%, 65%, 75% {
+  55%,
+  65%,
+  75% {
     transform: rotate(40deg);
   }
   70% {
     transform: rotate(45deg);
   }
-  85%, 90% {
+  85%,
+  90% {
     transform: rotate(50deg);
   }
   95% {
     transform: rotate(75deg);
   }
-  100%, 93% {
+  100%,
+  93% {
     transform: rotate(70deg);
   }
 }

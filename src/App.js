@@ -19,13 +19,13 @@ const App = () => {
 
   return (
     <div>
-      {loading ? (
+      {/* {loading ? (
         <div className="loader-container">
           <span class="loader"></span>
         </div>
       ) : (
-        <Router />
-      )}
+	)} */}
+	<Router />
     </div>
   );
 };

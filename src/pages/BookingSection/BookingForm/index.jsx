@@ -15,6 +15,7 @@ import "../../../styles/booking-form.css";
 import { bookRide, isCarAvailable } from "../../../services/rentals";
 import { useAppStore } from "../../../store";
 import InfoTableDialog from "../InfoTable";
+import isEmpty from "lodash.isempty";
 
 const options = [
   { label: "0", value: 0 },
@@ -26,7 +27,14 @@ const options = [
   { label: ">5", value: ">5" },
 ];
 
-const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
+const BookingForm = ({
+  formik,
+  bookingObj,
+  open,
+  setOpen,
+  loading,
+  additionalOptions,
+}) => {
   const { car } = useAppStore();
 
   const [message, setMessage] = useState({
@@ -46,6 +54,7 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
     if (response.message === "Car available") {
       await bookRide({
         ...bookingObj,
+        options: formik.values.options,
         carId: car.id,
       });
       setMessage({ type: "success", text: "Thank You! Ride confirmed" });
@@ -55,6 +64,26 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
       }, 1500);
     } else {
       setMessage({ type: "error", text: "Sorry! This car is not available" });
+    }
+  };
+
+  const handleCheckbox = (paramsOption) => {
+    const selectecOptions = formik.values.options;
+
+    if (!formik.values.options.includes(paramsOption)) {
+      formik.setValues({
+        ...formik.values,
+        options: [...formik.values.options, paramsOption],
+      });
+    } else {
+      const remainingOptions = selectecOptions.filter(
+        (option) => option !== paramsOption
+      );
+
+      formik.setValues({
+        ...formik.values,
+        options: remainingOptions,
+      });
     }
   };
 
@@ -150,12 +179,12 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
           </Col>
           <Col md="6">
             <FormGroup col>
-              <Label>Passengers</Label>
+              <Label>Adult</Label>
               <Col>
                 <Input
                   type="select"
-                  name="passengers"
-                  value={formik.values.passengers}
+                  name="adult"
+                  value={formik.values.adult}
                   onChange={formik.handleChange}
                   style={{ height: "3rem" }}
                   disabled
@@ -168,6 +197,25 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
             </FormGroup>
           </Col>
           <Col md="6">
+            <FormGroup col>
+              <Label>Child</Label>
+              <Col>
+                <Input
+                  type="select"
+                  name="child"
+                  value={formik.values.child}
+                  onChange={formik.handleChange}
+                  style={{ height: "3rem" }}
+                  disabled
+                >
+                  {options.map((op) => (
+                    <option value={op.value}>{op.label}</option>
+                  ))}
+                </Input>
+              </Col>
+            </FormGroup>
+          </Col>
+          <Col md="12">
             <FormGroup col>
               <Label>Luggages</Label>
               <Col>
@@ -274,6 +322,70 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
               </Col>
             </FormGroup>
           </Col>
+
+          {!isEmpty(additionalOptions) && (
+            <Col md="12">
+              <Row className="g-4">
+                {additionalOptions.map((item) => (
+                  <Col
+                    md="6"
+                    sm="6"
+                    xs="6"
+                    key={item.label}
+                    onClick={() => handleCheckbox(item)}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        height: 48,
+                        paddingLeft: 16,
+                        paddingRight: 16,
+                        background: "#e9ecef",
+                        borderRadius: 8,
+                        cursor: "pointer",
+                      }}
+                    >
+                      <i
+                        class="ri-car-line ri-lg"
+                        style={{
+                          marginRight: 12,
+                          color: "#6c757d",
+                          marginTop: 2,
+                        }}
+                      />
+
+                      <FormGroup check>
+                        <Input
+                          type="checkbox"
+                          checked={formik.values.options.includes(item)}
+                          style={{
+                            marginRight: 8,
+                            height: 20,
+                            width: 20,
+                            cursor: "pointer",
+                          }}
+                        />
+                      </FormGroup>
+
+                      <Label check>{item.label}</Label>
+
+                      <FormText
+                        style={{
+                          marginLeft: "auto",
+                          marginTop: 0,
+                          fontWeight: 600,
+                        }}
+                      >
+                        $ {item.price}
+                      </FormText>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </Col>
+          )}
+
           <Col md="12">
             <Button type="submit" className="booking" style={{ width: "100%" }}>
               Confirm details
@@ -286,7 +398,7 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
           loading={loading}
           open={open}
           setOpen={setOpen}
-          data={bookingObj}
+          data={{ ...bookingObj, options: formik.values.options }}
           handleConfirmation={handleConfirmation}
           message={message}
           setMessage={setMessage}
