@@ -15,7 +15,6 @@ import "../../../styles/booking-form.css";
 import { bookRide, isCarAvailable } from "../../../services/rentals";
 import { useAppStore } from "../../../store";
 import InfoTableDialog from "../InfoTable";
-import isEmpty from "lodash.isempty";
 
 const options = [
   { label: "0", value: 0 },
@@ -27,14 +26,7 @@ const options = [
   { label: ">5", value: ">5" },
 ];
 
-const BookingForm = ({
-  formik,
-  bookingObj,
-  open,
-  setOpen,
-  loading,
-  additionalOptions,
-}) => {
+const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
   const { car } = useAppStore();
 
   const [message, setMessage] = useState({
@@ -64,26 +56,6 @@ const BookingForm = ({
       }, 1500);
     } else {
       setMessage({ type: "error", text: "Sorry! This car is not available" });
-    }
-  };
-
-  const handleCheckbox = (paramsOption) => {
-    const selectecOptions = formik.values.options;
-
-    if (!formik.values.options.includes(paramsOption)) {
-      formik.setValues({
-        ...formik.values,
-        options: [...formik.values.options, paramsOption],
-      });
-    } else {
-      const remainingOptions = selectecOptions.filter(
-        (option) => option !== paramsOption
-      );
-
-      formik.setValues({
-        ...formik.values,
-        options: remainingOptions,
-      });
     }
   };
 
@@ -323,69 +295,6 @@ const BookingForm = ({
             </FormGroup>
           </Col>
 
-          {!isEmpty(additionalOptions) && (
-            <Col md="12">
-              <Row className="g-4">
-                {additionalOptions.map((item) => (
-                  <Col
-                    md="6"
-                    sm="6"
-                    xs="6"
-                    key={item.label}
-                    onClick={() => handleCheckbox(item)}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        height: 48,
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        background: "#e9ecef",
-                        borderRadius: 8,
-                        cursor: "pointer",
-                      }}
-                    >
-                      <i
-                        class="ri-car-line ri-lg"
-                        style={{
-                          marginRight: 12,
-                          color: "#6c757d",
-                          marginTop: 2,
-                        }}
-                      />
-
-                      <FormGroup check>
-                        <Input
-                          type="checkbox"
-                          checked={formik.values.options.includes(item)}
-                          style={{
-                            marginRight: 8,
-                            height: 20,
-                            width: 20,
-                            cursor: "pointer",
-                          }}
-                        />
-                      </FormGroup>
-
-                      <Label check>{item.label}</Label>
-
-                      <FormText
-                        style={{
-                          marginLeft: "auto",
-                          marginTop: 0,
-                          fontWeight: 600,
-                        }}
-                      >
-                        $ {item.price}
-                      </FormText>
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </Col>
-          )}
-
           <Col md="12">
             <Button type="submit" className="booking" style={{ width: "100%" }}>
               Confirm details
@@ -393,6 +302,7 @@ const BookingForm = ({
           </Col>
         </Row>
       </Form>
+
       {open && (
         <InfoTableDialog
           loading={loading}

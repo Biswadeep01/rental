@@ -38,12 +38,17 @@ const FindCarForm = () => {
     onSubmit: async (values) => {
       try {
         setLoading(true);
-        fetchAvailableCars({
+        await fetchAvailableCars({
           pickupDateTime: `${values.pickupDate}T${values.pickupTime}:00`,
           returnDateTime: `${values.returnDate}T${values.returnTime}:00`,
         });
         setLoading(false);
-        navigate("/fleet");
+        navigate("/fleet", {
+          state: {
+            pickupDateTime: `${values.pickupDate}T${values.pickupTime}:00`,
+            returnDateTime: `${values.returnDate}T${values.returnTime}:00`,
+          },
+        });
       } catch (err) {
         setLoading(false);
         console.log(err.message);

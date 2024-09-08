@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../../../styles/car-item.css";
 import { useAppStore } from "../../../store";
 import { Button } from "reactstrap";
@@ -16,11 +16,12 @@ const CarItem = ({
   },
 }) => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const { fetchCar } = useAppStore();
 
   const handleRedirection = (carId) => {
     fetchCar(carId);
-    navigate("/booking-form");
+    navigate("/booking-form", { state });
   };
 
   return (

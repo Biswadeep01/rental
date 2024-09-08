@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Col } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import isEmpty from "lodash.isempty";
 import { apiGetServices } from "../../firebase/firestore/queries";
 import "../../styles/services-list.css";
 
 const ServiceItem = ({ item }) => (
-  <Col lg="4" md="4" sm="6" className="mb-4">
+  <Col lg="4" md="4" sm="6" className="mb-4 px-4">
     <div className="service__item">
       <span className="mb-3 d-inline-block">
         <i class="ri-magic-line" />
@@ -31,11 +31,11 @@ const ServicesList = () => {
   return (
     <>
       {!isEmpty(services) && (
-        <>
+        <Row>
           {services.map((item) => (
             <ServiceItem item={item} key={item.id} />
           ))}
-        </>
+        </Row>
       )}
 
       {isEmpty(services) && (
