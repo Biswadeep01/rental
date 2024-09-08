@@ -27,6 +27,8 @@ export const InfoTab = () => {
   const [aboutInfo, setAboutInfo] = useState({});
   const [showLoader, setShowLoader] = useState(false);
   const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const [newReason, setNewReason] = useState("");
+  const [addNewReason, setAddNewReason] = useState(false);
 
   const handleDrop = useCallback(async (acceptedFiles) => {
     setShowLoader(true);
@@ -99,6 +101,12 @@ export const InfoTab = () => {
       (reason) => reason !== ""
     );
 
+    if (newReason) {
+      nonEmptyReasonsToChooseUs.push(newReason);
+      setNewReason("");
+      setAddNewReason(false);
+    }
+
     await apiPostUpdateAboutInfo({
       description: formik.values.description,
       image: formik.values.image,
@@ -155,7 +163,7 @@ export const InfoTab = () => {
                 <img
                   src={formik.values.image}
                   alt="about"
-                  style={{ width: 500, height: 300 }}
+                  style={{ width: 480, height: 300 }}
                 />
               </div>
             ) : (
@@ -243,48 +251,104 @@ export const InfoTab = () => {
           </Col>
         </Row>
 
-        <div style={{ marginLeft: -32, marginTop: 20 }}>
-          {mode === "view" ? (
-            <ul>
-              {formik.values.reasonsToChooseUs.map((reason, index) => (
-                <li key={index} style={{ marginTop: 8 }}>
-                  {index + 1}. {reason}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <ul>
-              {formik.values.reasonsToChooseUs.map((reason, index) => (
-                <>
-                  {reason && (
-                    <li
-                      key={index}
-                      style={{ marginTop: 4, position: "relative" }}
+        {mode === "view" && (
+          <>
+            {!addNewReason ? (
+              <Row className="mt-4">
+                <Col
+                  lg="7"
+                  md="7"
+                  sm="12"
+                  className="d-flex gap-2 align-items-center justify-content-end"
+                >
+                  <Button onClick={() => setAddNewReason(true)}>+ Add</Button>
+                </Col>
+              </Row>
+            ) : (
+              <>
+                <Row className="mt-2">
+                  <Col lg="7" md="7" sm="12">
+                    <Input
+                      name="newReason"
+                      value={newReason}
+                      onChange={(e) => setNewReason(e.target.value)}
+                      placeholder="Add reason to choose us"
+                      style={{ marginTop: 16 }}
+                    />
+                  </Col>
+                </Row>
+
+                {addNewReason && (
+                  <Row className="mt-2">
+                    <Col
+                      lg="7"
+                      md="7"
+                      sm="12"
+                      className="d-flex gap-2 align-items-center justify-content-end"
                     >
-                      <Input
-                        type="text"
-                        value={reason}
-                        onChange={(e) => handleChange(index, e.target.value)}
-                        width={"100%"}
-                      />
-                      <div
-                        style={{
-                          cursor: "pointer",
-                          position: "absolute",
-                          right: 8,
-                          top: 8,
-                        }}
-                        onClick={() => handleChange(index, "")}
-                      >
-                        <i className="ri-close-line ri-lg" />
+                      <div className="d-flex gap-2">
+                        <Button
+                          type="button"
+                          onClick={() => setAddNewReason(false)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button type="button" onClick={handleSaveChanges}>
+                          Submit
+                        </Button>
                       </div>
-                    </li>
-                  )}
-                </>
-              ))}
-            </ul>
-          )}
-        </div>
+                    </Col>
+                  </Row>
+                )}
+              </>
+            )}
+          </>
+        )}
+
+        {!addNewReason && (
+          <div style={{ marginLeft: -32 }}>
+            {mode === "view" ? (
+              <ul>
+                {formik.values.reasonsToChooseUs.map((reason, index) => (
+                  <li key={index} style={{ marginTop: 8 }}>
+                    {index + 1}. {reason}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul style={{ marginTop: 24 }}>
+                {formik.values.reasonsToChooseUs.map((reason, index) => (
+                  <>
+                    {reason && (
+                      <li
+                        key={index}
+                        style={{ marginTop: 4, position: "relative" }}
+                      >
+                        <Input
+                          type="text"
+                          value={reason}
+                          onChange={(e) => handleChange(index, e.target.value)}
+                          width={"100%"}
+                        />
+                        <div
+                          style={{
+                            cursor: "pointer",
+                            position: "absolute",
+                            right: 8,
+                            top: 8,
+                          }}
+                          onClick={() => handleChange(index, "")}
+                        >
+                          <i className="ri-close-line ri-lg" />
+                        </div>
+                      </li>
+                    )}
+                  </>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </form>
 
       {unsavedChanges && (

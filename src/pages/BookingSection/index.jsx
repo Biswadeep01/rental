@@ -8,9 +8,11 @@ import { useAppContext } from "../../context";
 import "../../styles/booking-form.css";
 import Stepper from "../../components/UI/Stepper";
 import CarCatalog from "./CarCatalog";
+import AdditionalOptions from "./AdditionalOptions";
 import BookingForm from "./BookingForm";
 import { useAppStore } from "../../store";
 import { apiGetOptions } from "../../firebase/firestore/queries";
+import { useLocation } from "react-router-dom";
 
 const validationSchema = yup.object({
   firstName: yup.string().required("*required"),
@@ -32,6 +34,7 @@ const validationSchema = yup.object({
 });
 
 const BookingSection = () => {
+  const { state: locationStateData } = useLocation();
   const { user } = useAppContext();
   const { car } = useAppStore();
 
@@ -42,6 +45,19 @@ const BookingSection = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const selectedPickUpDate =
+    dayjs(locationStateData?.pickupDateTime?.split("T")[0])?.format(
+      "YYYY-MM-DD"
+    ) || dayjs(new Date()).format("YYYY-MM-DD");
+  const selectedPickUpTime =
+    locationStateData?.pickupDateTime?.split("T")[1] || "";
+  const selectedReturnDate =
+    dayjs(locationStateData?.returnDateTime?.split("T")[0]).format(
+      "YYYY-MM-DD"
+    ) || "";
+  const selectedReturnTime =
+    locationStateData?.returnDateTime?.split("T")[1] || "";
+
   const formik = useFormik({
     validationSchema,
     initialValues: {
@@ -50,10 +66,10 @@ const BookingSection = () => {
       email: "",
       fromAddress: "",
       toAddress: "",
-      pickupDate: dayjs(new Date()).format("YYYY-MM-DD"),
-      pickupTime: "",
-      returnDate: "",
-      returnTime: "",
+      pickupDate: selectedPickUpDate,
+      pickupTime: selectedPickUpTime,
+      returnDate: selectedReturnDate,
+      returnTime: selectedReturnTime,
       message: "",
       adult: car?.passengers?.adult || 0,
       child: car?.passengers?.child || 0,
@@ -83,13 +99,19 @@ const BookingSection = () => {
   const navObj = {
     1: <CarCatalog handleStepChange={handleStepChange} />,
     2: (
+      <AdditionalOptions
+        formik={formik}
+        options={additionalOptions}
+        handleStepChange={handleStepChange}
+      />
+    ),
+    3: (
       <BookingForm
         formik={formik}
         bookingObj={bookingObj}
         open={open}
         setOpen={setOpen}
         loading={loading}
-        additionalOptions={additionalOptions}
       />
     ),
   };
@@ -130,7 +152,7 @@ const BookingSection = () => {
         <Stepper
           completedSteps={completedSteps}
           currentStep={currentStep}
-          totalSteps={3}
+          totalSteps={4}
           handleStepChange={handleStepChange}
         />
 
