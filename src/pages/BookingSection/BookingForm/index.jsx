@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import dayjs from "dayjs";
 import {
   Container,
@@ -15,6 +15,7 @@ import "../../../styles/booking-form.css";
 import { bookRide, isCarAvailable } from "../../../services/rentals";
 import { useAppStore } from "../../../store";
 import InfoTableDialog from "../InfoTable";
+import isEmpty from "lodash.isempty";
 
 const options = [
   { label: "0", value: 0 },
@@ -29,6 +30,7 @@ const options = [
 const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
   const { car } = useAppStore();
 
+  const [hasAcceptedTerms, setHasAcceptedTerms] = useState(false);
   const [message, setMessage] = useState({
     type: "",
     text: "",
@@ -58,6 +60,27 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
       setMessage({ type: "error", text: "Sorry! This car is not available" });
     }
   };
+
+  const totalDays = useMemo(() => {
+    const days = dayjs(formik.values.returnDate).diff(
+      dayjs(formik.values.pickupDate),
+      "day"
+    );
+    return days;
+  }, [formik.values.returnDate, formik.values.pickupDate]);
+
+  const totalPrice = useMemo(() => {
+    const additional = formik.values.options.reduce((acc, curr) => {
+      return parseFloat(acc) + parseFloat(curr.price);
+    }, 0);
+
+    const total = (
+      parseFloat(totalDays) * parseFloat(car.pricePerDay) +
+      parseFloat(additional)
+    ).toFixed(2);
+
+    return total === "NaN" ? 0 : total;
+  }, [formik.values.options, car, totalDays]);
 
   return (
     <Container className="my-5">
@@ -295,9 +318,147 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
             </FormGroup>
           </Col>
 
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              height: 48,
+              paddingLeft: 16,
+              paddingRight: 16,
+              background: "#e9ecef",
+              borderRadius: 8,
+            }}
+          >
+            <p className="mt-3">
+              {dayjs(formik.values.pickupDate).format("DD/MM/YYYY")} -{" "}
+              {dayjs(formik.values.returnDate).format("DD/MM/YYYY")}
+              &nbsp;|&nbsp;
+              {dayjs(formik.values.returnDate).diff(
+                formik.values.pickupDate,
+                "days"
+              )}{" "}
+              day(s) at $ {car?.pricePerDay}
+            </p>
+
+            <p className="mt-3" style={{ marginLeft: "auto", fontWeight: 600 }}>
+              $ {parseFloat(totalDays * car?.pricePerDay).toFixed(2)}
+            </p>
+          </div>
+
+          {!isEmpty(formik.values.options) && (
+            <div
+              style={{
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+              }}
+            >
+              {formik.values.options.map((item) => (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: 48,
+                    paddingLeft: 16,
+                    paddingRight: 16,
+                    background: "#e9ecef",
+                    borderRadius: 8,
+                  }}
+                >
+                  <i
+                    class="ri-car-line ri-lg"
+                    style={{
+                      marginRight: 12,
+                      color: "#6c757d",
+                      marginTop: 2,
+                    }}
+                  />
+
+                  <Label check>{item.label}</Label>
+
+                  <FormText
+                    style={{
+                      marginLeft: "auto",
+                      marginTop: 0,
+                      fontWeight: 600,
+                    }}
+                  >
+                    $ {item.price}
+                  </FormText>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* {!isEmpty(formik.values.options) && (
+            <Row style={{ padding: 0 }}>
+              {formik.values.options.map((item) => (
+                <Col
+                  lg="12"
+                  md="12"
+                  sm="12"
+                  xs="6"
+                  key={item.label}
+                  className="mb-2"
+                >
+                  
+                </Col>
+              ))}
+            </Row>
+          )} */}
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              height: 48,
+              paddingLeft: 16,
+              paddingRight: 16,
+              borderRadius: 8,
+              border: "1px solid black",
+            }}
+          >
+            <p className="mt-3">Total</p>
+            <p className="mt-3" style={{ marginLeft: "auto", fontWeight: 600 }}>
+              $ {totalPrice}
+            </p>
+          </div>
+
+          <div className="d-flex justify-content-start gap-2 mt-4">
+            <Input
+              type="checkbox"
+              checked={hasAcceptedTerms}
+              onChange={() => setHasAcceptedTerms(!hasAcceptedTerms)}
+              style={{
+                height: 20,
+                width: 20,
+                cursor: "pointer",
+              }}
+            />
+            <p>
+              By clicking on confirm, you agree to the{" "}
+              <a
+                href="/"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: "none" }}
+              >
+                Terms of Service
+              </a>
+            </p>
+          </div>
+
           <Col md="12">
-            <Button type="submit" className="booking" style={{ width: "100%" }}>
-              Confirm details
+            <Button
+              type="submit"
+              className="booking"
+              style={{ width: "100%" }}
+              disabled={!hasAcceptedTerms}
+            >
+              Confirm
             </Button>
           </Col>
         </Row>

@@ -33,8 +33,9 @@ const AdditionalOptions = ({ options = [], formik, handleStepChange }) => {
 
   return (
     <div className="my-4">
+      <h3>Choose Additional Options</h3>
       {!isEmpty(options) && (
-        <Col md="12">
+        <Col md="12" className="mt-4">
           <Row className="g-4">
             {options.map((item) => (
               <Col
