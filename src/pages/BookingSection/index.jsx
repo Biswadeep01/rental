@@ -20,7 +20,7 @@ const validationSchema = yup.object({
   email: yup
     .string()
     .matches(
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      /^[a-zA-Z0-9._%+-+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       "Invalid email"
     ),
   phoneNumber: yup.string().required("*required"),
@@ -28,7 +28,17 @@ const validationSchema = yup.object({
   toAddress: yup.string().required("*required"),
   pickupDate: yup.string().required("*required"),
   pickupTime: yup.string().required("*required"),
-  returnDate: yup.string().required("*required"),
+  returnDate: yup
+    .string()
+    .required("*required")
+    .test(
+      "is-different-from-pickup-date",
+      "Cannot be the same as pickup date",
+      function (value) {
+        const { pickupDate } = this.parent;
+        return value !== pickupDate;
+      }
+    ),
   returnTime: yup.string().required("*required"),
   message: yup.string(),
 });
