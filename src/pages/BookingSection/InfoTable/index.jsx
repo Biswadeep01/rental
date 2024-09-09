@@ -100,7 +100,9 @@ function InfoTableDialog({
               <tr>
                 <th scope="row">8</th>
                 <td>Passengers</td>
-                <td>{data.passengers}</td>
+                <td>
+                  Adults: {data.adult} | Child: {data.child}
+                </td>
               </tr>
               <tr>
                 <th scope="row">9</th>
@@ -118,6 +120,15 @@ function InfoTableDialog({
                   ))}
                 </>
               )}
+              <tr>
+                <th />
+                <td>
+                  <b>Total</b>
+                </td>
+                <td>
+                  <b>$ {data.totalPrice}</b>
+                </td>
+              </tr>
             </tbody>
           </Table>
         </ModalBody>

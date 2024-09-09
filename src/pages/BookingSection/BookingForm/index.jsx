@@ -330,10 +330,9 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
               borderRadius: 8,
             }}
           >
-            <p className="mt-3">
-              {dayjs(formik.values.pickupDate).format("DD/MM/YYYY")} -{" "}
-              {dayjs(formik.values.returnDate).format("DD/MM/YYYY")}
-              &nbsp;|&nbsp;
+            <p className="mt-3" style={{ fontSize: 14 }}>
+              ({dayjs(formik.values.pickupDate).format("DD/MM/YYYY")} -{" "}
+              {dayjs(formik.values.returnDate).format("DD/MM/YYYY")}) &nbsp;
               {dayjs(formik.values.returnDate).diff(
                 formik.values.pickupDate,
                 "days"
@@ -341,7 +340,10 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
               day(s) at $ {car?.pricePerDay}
             </p>
 
-            <p className="mt-3" style={{ marginLeft: "auto", fontWeight: 600 }}>
+            <p
+              className="mt-3"
+              style={{ marginLeft: "auto", fontSize: 14, fontWeight: 600 }}
+            >
               $ {parseFloat(totalDays * car?.pricePerDay).toFixed(2)}
             </p>
           </div>
@@ -391,23 +393,6 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
               ))}
             </div>
           )}
-
-          {/* {!isEmpty(formik.values.options) && (
-            <Row style={{ padding: 0 }}>
-              {formik.values.options.map((item) => (
-                <Col
-                  lg="12"
-                  md="12"
-                  sm="12"
-                  xs="6"
-                  key={item.label}
-                  className="mb-2"
-                >
-                  
-                </Col>
-              ))}
-            </Row>
-          )} */}
 
           <div
             style={{
@@ -469,7 +454,7 @@ const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
           loading={loading}
           open={open}
           setOpen={setOpen}
-          data={{ ...bookingObj, options: formik.values.options }}
+          data={{ ...bookingObj, options: formik.values.options, totalPrice }}
           handleConfirmation={handleConfirmation}
           message={message}
           setMessage={setMessage}

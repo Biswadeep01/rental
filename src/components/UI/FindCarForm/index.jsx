@@ -18,7 +18,17 @@ import "./index.css";
 const validationSchema = yup.object({
   pickupDate: yup.string().required("*required"),
   pickupTime: yup.string().required("*required"),
-  returnDate: yup.string().required("*required"),
+  returnDate: yup
+    .string()
+    .required("*required")
+    .test(
+      "is-different-from-pickup-date",
+      "Cannot be the same as pickup date",
+      function (value) {
+        const { pickupDate } = this.parent;
+        return value !== pickupDate;
+      }
+    ),
   returnTime: yup.string().required("*required"),
 });
 
