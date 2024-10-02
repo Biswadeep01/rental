@@ -14,6 +14,7 @@ const Footer = () => {
   const [description, setDescription] = useState("");
   const [quickLinks, setQuickLinks] = useState([]);
   const [address, setAddress] = useState([]);
+  const [location, setLocation] = useState(null);
 
   const handleGetDescription = async () => {
     const footerDescription = await apiGetFooterInfo("information");
@@ -27,6 +28,9 @@ const Footer = () => {
     const addressDetails = await apiGetFooterInfo("address");
     if (addressDetails) {
       setAddress(addressDetails.addressDetails);
+    }
+    if (addressDetails) {
+      setLocation(addressDetails.location);
     }
   };
 
@@ -86,23 +90,25 @@ const Footer = () => {
             </Col>
           )}
 
-          <Col lg="3" md="4" sm="6">
-            <div className="mb-4">
-              <h5 className="footer-title">Location</h5>
-              <div className="map-wrap">
-                <MapContainer
-                  center={[18.336, -64.917503]}
-                  zoom={15}
-                  scrollWheelZoom={false}
-                >
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                  <Marker position={[18.336, -64.917503]}>
-                    <Popup>Just Rent a Car</Popup>
-                  </Marker>
-                </MapContainer>
+          {location && (
+            <Col lg="3" md="4" sm="6">
+              <div className="mb-4">
+                <h5 className="footer-title">Location</h5>
+                <div className="map-wrap">
+                  <MapContainer
+                    center={location}
+                    zoom={15}
+                    scrollWheelZoom={false}
+                  >
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    <Marker position={location}>
+                      <Popup>Just Rent a Car</Popup>
+                    </Marker>
+                  </MapContainer>
+                </div>
               </div>
-            </div>
-          </Col>
+            </Col>
+          )}
 
           <Col lg="12">
             <div className="footer__bottom">

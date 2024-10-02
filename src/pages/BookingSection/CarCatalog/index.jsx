@@ -83,6 +83,22 @@ const SelectedCar = ({ handleStepChange }) => {
             />
           </div>
           <CardTitle tag="h4">{car.model}</CardTitle>
+          <div className="d-flex align-items-center gap-4 my-2">
+            <span className="spec-item">
+              <i className="ri-team-line spec-item-icon ri-lg" />{" "}
+              {car.passengers.adult || 0} Adult
+            </span>
+
+            <span className="spec-item">
+              <i className="ri-team-line spec-item-icon ri-lg" />{" "}
+              {car.passengers.child || 0} Child
+            </span>
+
+            <span className="spec-item">
+              <i className="ri-suitcase-line spec-item-icon ri-lg" />{" "}
+              {car.luggageCapacity || 0} Luggages
+            </span>
+          </div>
           <CardText>
             Price: ${car.pricePerDay}.00 <span>/ day</span>
           </CardText>

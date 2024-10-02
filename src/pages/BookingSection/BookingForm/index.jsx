@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import dayjs from "dayjs";
 import {
   Container,
@@ -27,16 +27,10 @@ const options = [
   { label: ">5", value: ">5" },
 ];
 
-const BookingForm = ({
-  formik,
-  bookingObj,
-  open,
-  setOpen,
-  loading,
-  additionalOptions,
-}) => {
+const BookingForm = ({ formik, bookingObj, open, setOpen, loading }) => {
   const { car } = useAppStore();
 
+  const [hasAcceptedTerms, setHasAcceptedTerms] = useState(false);
   const [message, setMessage] = useState({
     type: "",
     text: "",
@@ -67,25 +61,26 @@ const BookingForm = ({
     }
   };
 
-  const handleCheckbox = (paramsOption) => {
-    const selectecOptions = formik.values.options;
+  const totalDays = useMemo(() => {
+    const days = dayjs(formik.values.returnDate).diff(
+      dayjs(formik.values.pickupDate),
+      "day"
+    );
+    return days;
+  }, [formik.values.returnDate, formik.values.pickupDate]);
 
-    if (!formik.values.options.includes(paramsOption)) {
-      formik.setValues({
-        ...formik.values,
-        options: [...formik.values.options, paramsOption],
-      });
-    } else {
-      const remainingOptions = selectecOptions.filter(
-        (option) => option !== paramsOption
-      );
+  const totalPrice = useMemo(() => {
+    const additional = formik.values.options.reduce((acc, curr) => {
+      return parseFloat(acc) + parseFloat(curr.price);
+    }, 0);
 
-      formik.setValues({
-        ...formik.values,
-        options: remainingOptions,
-      });
-    }
-  };
+    const total = (
+      parseFloat(totalDays) * parseFloat(car.pricePerDay) +
+      parseFloat(additional)
+    ).toFixed(2);
+
+    return total === "NaN" ? 0 : total;
+  }, [formik.values.options, car, totalDays]);
 
   return (
     <Container className="my-5">
@@ -323,82 +318,143 @@ const BookingForm = ({
             </FormGroup>
           </Col>
 
-          {!isEmpty(additionalOptions) && (
-            <Col md="12">
-              <Row className="g-4">
-                {additionalOptions.map((item) => (
-                  <Col
-                    md="6"
-                    sm="6"
-                    xs="6"
-                    key={item.label}
-                    onClick={() => handleCheckbox(item)}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              height: 48,
+              paddingLeft: 16,
+              paddingRight: 16,
+              background: "#e9ecef",
+              borderRadius: 8,
+            }}
+          >
+            <p className="mt-3" style={{ fontSize: 14 }}>
+              ({dayjs(formik.values.pickupDate).format("DD/MM/YYYY")} -{" "}
+              {dayjs(formik.values.returnDate).format("DD/MM/YYYY")}) &nbsp;
+              {dayjs(formik.values.returnDate).diff(
+                formik.values.pickupDate,
+                "days"
+              )}{" "}
+              day(s) at $ {car?.pricePerDay}
+            </p>
+
+            <p
+              className="mt-3"
+              style={{ marginLeft: "auto", fontSize: 14, fontWeight: 600 }}
+            >
+              $ {parseFloat(totalDays * car?.pricePerDay).toFixed(2)}
+            </p>
+          </div>
+
+          {!isEmpty(formik.values.options) && (
+            <div
+              style={{
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+              }}
+            >
+              {formik.values.options.map((item) => (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: 48,
+                    paddingLeft: 16,
+                    paddingRight: 16,
+                    background: "#e9ecef",
+                    borderRadius: 8,
+                  }}
+                >
+                  <i
+                    class="ri-car-line ri-lg"
+                    style={{
+                      marginRight: 12,
+                      color: "#6c757d",
+                      marginTop: 2,
+                    }}
+                  />
+
+                  <Label check>{item.label}</Label>
+
+                  <FormText
+                    style={{
+                      marginLeft: "auto",
+                      marginTop: 0,
+                      fontWeight: 600,
+                    }}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        height: 48,
-                        paddingLeft: 16,
-                        paddingRight: 16,
-                        background: "#e9ecef",
-                        borderRadius: 8,
-                        cursor: "pointer",
-                      }}
-                    >
-                      <i
-                        class="ri-car-line ri-lg"
-                        style={{
-                          marginRight: 12,
-                          color: "#6c757d",
-                          marginTop: 2,
-                        }}
-                      />
-
-                      <FormGroup check>
-                        <Input
-                          type="checkbox"
-                          checked={formik.values.options.includes(item)}
-                          style={{
-                            marginRight: 8,
-                            height: 20,
-                            width: 20,
-                            cursor: "pointer",
-                          }}
-                        />
-                      </FormGroup>
-
-                      <Label check>{item.label}</Label>
-
-                      <FormText
-                        style={{
-                          marginLeft: "auto",
-                          marginTop: 0,
-                          fontWeight: 600,
-                        }}
-                      >
-                        $ {item.price}
-                      </FormText>
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </Col>
+                    $ {item.price}
+                  </FormText>
+                </div>
+              ))}
+            </div>
           )}
 
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              height: 48,
+              paddingLeft: 16,
+              paddingRight: 16,
+              borderRadius: 8,
+              border: "1px solid black",
+            }}
+          >
+            <p className="mt-3">Total</p>
+            <p className="mt-3" style={{ marginLeft: "auto", fontWeight: 600 }}>
+              $ {totalPrice}
+            </p>
+          </div>
+
+          <div className="d-flex justify-content-start gap-2 mt-4">
+            <Input
+              type="checkbox"
+              checked={hasAcceptedTerms}
+              onChange={() => setHasAcceptedTerms(!hasAcceptedTerms)}
+              style={{
+                height: 20,
+                width: 20,
+                cursor: "pointer",
+              }}
+            />
+            <p>
+              By clicking on confirm, you agree to the{" "}
+              <a
+                href="/"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: "none" }}
+              >
+                Terms of Service
+              </a>
+            </p>
+          </div>
+
           <Col md="12">
-            <Button type="submit" className="booking" style={{ width: "100%" }}>
-              Confirm details
+            <Button
+              type="submit"
+              className="booking"
+              style={{ width: "100%" }}
+              disabled={!hasAcceptedTerms}
+            >
+              Confirm
             </Button>
           </Col>
         </Row>
       </Form>
+
       {open && (
         <InfoTableDialog
           loading={loading}
           open={open}
           setOpen={setOpen}
-          data={{ ...bookingObj, options: formik.values.options }}
+          data={{ ...bookingObj, options: formik.values.options, totalPrice }}
           handleConfirmation={handleConfirmation}
           message={message}
           setMessage={setMessage}

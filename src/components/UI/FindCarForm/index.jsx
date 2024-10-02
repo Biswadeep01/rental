@@ -18,7 +18,17 @@ import "./index.css";
 const validationSchema = yup.object({
   pickupDate: yup.string().required("*required"),
   pickupTime: yup.string().required("*required"),
-  returnDate: yup.string().required("*required"),
+  returnDate: yup
+    .string()
+    .required("*required")
+    .test(
+      "is-different-from-pickup-date",
+      "Cannot be the same as pickup date",
+      function (value) {
+        const { pickupDate } = this.parent;
+        return value !== pickupDate;
+      }
+    ),
   returnTime: yup.string().required("*required"),
 });
 
@@ -38,12 +48,17 @@ const FindCarForm = () => {
     onSubmit: async (values) => {
       try {
         setLoading(true);
-        fetchAvailableCars({
+        await fetchAvailableCars({
           pickupDateTime: `${values.pickupDate}T${values.pickupTime}:00`,
           returnDateTime: `${values.returnDate}T${values.returnTime}:00`,
         });
         setLoading(false);
-        navigate("/fleet");
+        navigate("/fleet", {
+          state: {
+            pickupDateTime: `${values.pickupDate}T${values.pickupTime}:00`,
+            returnDateTime: `${values.returnDate}T${values.returnTime}:00`,
+          },
+        });
       } catch (err) {
         setLoading(false);
         console.log(err.message);

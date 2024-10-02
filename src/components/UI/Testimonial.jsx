@@ -27,19 +27,15 @@ const Testimonial = () => {
 
   return (
     <div className="container d-flex justify-content-center align-items-center">
-      <div style={{ width: 740 }}>
+      <div style={{ width: "100%" }}>
         <Slider {...settings}>
           {testimonials.map((item, index) => (
             <div key={index}>
-              <div className="testimonial py-4 px-3">
+              <div className="testimonial p-4">
                 <p className="section__description">{item.description}</p>
-                <div className="mt-3 d-flex align-items-center">
-                  <div>
-                    <i class="ri-account-box-line ri-4x"></i>
-                    <h6 style={{ marginLeft: 8, marginTop: -8 }}>
-                      {item.name}
-                    </h6>
-                  </div>
+                <div className="d-flex align-items-center">
+                  <i class="ri-account-box-line ri-4x" />
+                  <h6 className="m-1">{item.name}</h6>
                 </div>
               </div>
             </div>
